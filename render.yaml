@@ -1,0 +1,9 @@
+# Render static site definition for the A.S. Remodeling staging site.
+# STAGING ONLY: this does not touch asremodelingllc.com or the live
+# Squarespace site. Only point the domain at the Render URL after
+# Aleks approves the site.
+services:
+  - type: static
+    name: as-remodeling-website
+    buildCommand: python3 build.py
+    staticPublishPath: dist
