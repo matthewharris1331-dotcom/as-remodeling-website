@@ -1,0 +1,17 @@
+body{font-family:system-ui,Arial,sans-serif;margin:0;color:#222;line-height:1.6}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid #ddd;position:sticky;top:0;background:#fff}
+.bar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:12px 20px}
+.brand{font-weight:700;text-decoration:none;color:#111;font-size:20px}
+nav a{margin-right:12px;text-decoration:none;color:#333}
+nav a.active{font-weight:700}
+.call{margin-left:auto;background:#111;color:#fff;padding:8px 14px;border-radius:6px;text-decoration:none}
+.hero{padding:48px 0 24px}
+.btn{display:inline-block;background:#111;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none;margin-right:10px}
+.btn.secondary{background:#fff;color:#111;border:1px solid #111}
+.cta{border-top:1px solid #ddd;margin-top:40px;padding:24px 0}
+.photo{background:#eee;border:1px dashed #999;padding:48px 20px;text-align:center;margin:20px 0}
+form label{display:block;margin:12px 0}
+form input,form select,form textarea{width:100%;padding:10px;margin-top:4px;box-sizing:border-box}
+form button{background:#111;color:#fff;padding:12px 20px;border:0;border-radius:6px}
+footer{border-top:1px solid #ddd;padding:24px 0;color:#555}
