@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact for a Free Estimate | A.S. Remodeling, Phoenix AZ</title>
+<meta name="description" content="Contact A.S. Remodeling for a free tile estimate in Phoenix, Cave Creek, Anthem, or Scottsdale.">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "HomeAndGardenBusiness",
+  "name": "A.S. Remodeling, LLC",
+  "telephone": "(602) 884-1904",
+  "email": "Ascremodel@gmail.com",
+  "url": "https://www.asremodelingllc.com",
+  "areaServed": [
+    "Phoenix, AZ",
+    "Cave Creek, AZ",
+    "Anthem, AZ",
+    "Scottsdale, AZ"
+  ],
+  "openingHours": "Mo-Fr 08:00-17:00"
+}</script>
+</head>
+<body>
+<header><div class="wrap bar">
+<a class="brand" href="index.html">A.S. Remodeling</a>
+<nav><a href="index.html">Home</a><a href="services.html">Services</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html" class="active">Contact</a></nav>
+<a class="call" href="tel:+16028841904">Call (602) 884-1904</a>
+</div></header>
+<main class="wrap">
+<h1>Contact for a Free Estimate</h1>
+<p>Call <a href="tel:+16028841904">(602) 884-1904</a> or email <a href="mailto:Ascremodel@gmail.com">Ascremodel@gmail.com</a>. Hours: Monday to Friday, 8am to 5pm.</p>
+<form id="estimate-form">
+<label>First Name <input name="first_name" required></label>
+<label>Phone (required) <input name="phone" type="tel" required></label>
+<label>Email <input name="email" type="email"></label>
+<label>Project Type <select name="project_type"><option>Shower tile</option><option>Kitchen tile and backsplash</option><option>Bathroom tile and remodeling</option><option>Tile flooring</option><option>Other</option></select></label>
+<label>Project Details <textarea name="details" rows="5"></textarea></label>
+<button type="submit">Send Estimate Request</button>
+<p id="form-note"></p>
+</form>
+<script>
+document.getElementById('estimate-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  document.getElementById('form-note').textContent = 'Staging form: no form endpoint is connected yet. In the live version this will send to Aleks, and you will see: Thanks! We will call you within one business day.';
+});
+</script>
+<p><small>Staging note: do not publish this form until a form endpoint (for example a free form service or email handler) is chosen and approved. No submission is sent from this staging build.</small></p>
+<section class="cta">
+<h2>Get a Free Estimate</h2>
+<p>Family-owned. One craftsman on every job. No crews, no shortcuts. Free estimates.</p>
+<p><a class="btn" href="contact.html">Get a Free Estimate</a> <a class="btn secondary" href="tel:+16028841904">Call (602) 884-1904</a></p>
+</section>
+</main>
+<footer><div class="wrap">
+<p>A.S. Remodeling LLC. Licensed AZ tile specialty contractor, AZ ROC 361142. Serving Phoenix, Cave Creek, Anthem, and Scottsdale, AZ.</p>
+<p>Phone: <a href="tel:+16028841904">(602) 884-1904</a> | Email: <a href="mailto:Ascremodel@gmail.com">Ascremodel@gmail.com</a> | Hours: Monday to Friday, 8am to 5pm</p>
+<p><a href="contact.html">Get a Free Estimate</a></p>
+</div></footer>
+</body>
+</html>
