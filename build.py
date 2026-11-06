@@ -46,7 +46,7 @@ def header(active):
 FOOTER = f"""<footer><div class="wrap footgrid">
 <div>
 <p class="footbrand">A.S. Remodeling LLC</p>
-<p>Licensed AZ tile specialty contractor, {ROC}. Serving {AREAS}.</p>
+<p>Licensed, bonded and insured AZ tile specialty contractor, {ROC}. Serving {AREAS}.</p>
 <p>Hours: Monday to Friday, 8am to 5pm</p>
 </div>
 <div>
@@ -114,10 +114,10 @@ PAGES = {
 <h1>High-End Tile Installation in Phoenix, AZ</h1>
 <p class="hero-pitch">{PITCH}</p>
 <p class="hero-btns"><a class="btn" href="contact.html">Get a Free Estimate</a> <a class="btn light" href="tel:{PHONE_TEL}">Call {PHONE}</a></p>
-<p class="hero-trust">Licensed, {ROC} &nbsp;|&nbsp; 5.0 stars on Google &nbsp;|&nbsp; One craftsman on every job</p>
+<p class="hero-trust">Licensed, Bonded and Insured, {ROC} &nbsp;|&nbsp; 5.0 stars on Google &nbsp;|&nbsp; One craftsman on every job</p>
 </div></section>
 <section class="trust"><div class="wrap trust-row">
-<span><strong>Licensed</strong> {ROC}</span>
+<span><strong>Licensed, Bonded and Insured</strong> {ROC}</span>
 <span><strong>5.0 stars</strong> on Google</span>
 <span><strong>Family-owned</strong> and local</span>
 <span><strong>Free</strong> estimates</span>
@@ -199,11 +199,11 @@ PAGES = {
   "About A.S. Remodeling | Tile Installer in Phoenix, AZ",
   "A.S. Remodeling is a family-owned tile installer serving Phoenix, Cave Creek, Anthem, and Scottsdale, AZ.",
   f"""<main class="wrap page-head"><h1>About A.S. Remodeling</h1><p class="lede">{PITCH}</p>
-<p>A.S. Remodeling LLC is a licensed AZ tile specialty contractor, {ROC}, serving {AREAS}.</p>
+<p>A.S. Remodeling LLC is a licensed, bonded and insured AZ tile specialty contractor, {ROC}, serving {AREAS}.</p>
 <p>Copy on this staging page is carried over from the current site and the drafted service pages. Aleks must confirm the history and project claims before this page goes live.</p>
 <ul class="checklist">
 <li>Family-owned, one craftsman on every job</li>
-<li>Licensed AZ tile specialty contractor, {ROC}</li>
+<li>Licensed, bonded and insured, {ROC}</li>
 <li>Serving Phoenix, Cave Creek, Anthem, and Scottsdale</li>
 </ul></main>""",
   "about.html"),
