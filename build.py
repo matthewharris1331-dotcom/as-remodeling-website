@@ -70,7 +70,8 @@ SCHEMA = json.dumps({
     "openingHours": "Mo-Fr 08:00-17:00",
 }, indent=2)
 
-def page(slug, title, desc, body, active):
+def page(slug, title, desc, body, active, extra_schema=None):
+    extra = f'<script type="application/ld+json">{extra_schema}</script>' if extra_schema else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -81,6 +82,7 @@ def page(slug, title, desc, body, active):
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/svg+xml" href="as-remodeling-logo.svg">
 <script type="application/ld+json">{SCHEMA}</script>
+{extra}
 </head>
 <body>
 {header(active)}
@@ -105,6 +107,37 @@ def photo(caption):
 def service_body(intro, items):
     lis = "".join(f"<li>{i}</li>" for i in items)
     return f"<p class=\"lede\">{intro}</p><h2>What is included</h2><ul class=\"checklist\">{lis}</ul><p>{PITCH}</p>"
+
+
+def faq_schema(faqs):
+    import json as _json
+    return _json.dumps({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in faqs
+        ],
+    })
+
+def city_body(city, intro, sections, faqs, others):
+    secs = "".join(f"<h2>{h}</h2><p>{t}</p>" for h, t in sections)
+    faq_html = "".join(f"<h3>{q}</h3><p>{a}</p>" for q, a in faqs)
+    other_links = " ".join(f'<a href="{href}">{label}</a>' for label, href in others)
+    return (
+        f'<main class="wrap page-head"><h1>Tile Installation in {city}, AZ</h1>'
+        f'<p class="lede">{intro}</p>'
+        + photo(f"Photo: finished tile work in {city}")
+        + secs
+        + '<h2>What we review before tile work in ' + city + '</h2>'
+        + '<ul class="checklist"><li>The room, the material, and what you want changed</li>'
+        + '<li>The existing surface, and the waterproofing and prep it needs</li>'
+        + '<li>Layout, grout lines, and transitions to adjoining floors</li>'
+        + '<li>Scheduling, access, and how the work fits around your home</li></ul>'
+        + '<h2>Questions about tile work in ' + city + '</h2>' + faq_html
+        + '<p>Also serving: ' + other_links + '. See all <a href="service-areas.html">service areas</a>.</p>'
+        + '<p>Call <a href="tel:+16028841904">(602) 884-1904</a> to talk through your project and set up a free estimate.</p></main>'
+    )
 
 PAGES = {
  "index.html": (
@@ -146,6 +179,8 @@ PAGES = {
 <li>Serving Phoenix, Cave Creek, Anthem, and Scottsdale</li>
 </ul>
 <p><a href="services.html">See all services</a> in {AREAS}.</p>
+<h2>Tile installation across the Valley</h2>
+<p>We serve homeowners in <a href="tile-installation-phoenix-az.html">Phoenix</a>, <a href="tile-installation-scottsdale-az.html">Scottsdale</a>, <a href="tile-installation-cave-creek-az.html">Cave Creek</a>, and <a href="tile-installation-anthem-az.html">Anthem</a>. See all <a href="service-areas.html">service areas</a>.</p>
 </main>""",
   "index.html"),
  "services.html": (
@@ -232,6 +267,135 @@ document.getElementById('estimate-form').addEventListener('submit', function(e) 
 <p><small>Staging note: do not publish this form until a form endpoint (for example a free form service or email handler) is chosen and approved. No submission is sent from this staging build.</small></p>
 </div></main>""",
   "contact.html"),
+ "tile-installation-phoenix-az.html": (
+  "Tile Installation in Phoenix, AZ | A.S. Remodeling",
+  "Tile installation in Phoenix, AZ: showers, bathroom tile, kitchen backsplash, and tile floors, from historic homes to North Central ranches.",
+  city_body(
+   "Phoenix",
+   "Phoenix covers a lot of ground, from 1950s ranches in North Central and the Biltmore area to 1980s custom homes, Moon Valley, and historic districts like Willo, Encanto-Palmcroft, Roosevelt, and F.Q. Story. Tile work here has to fit the house it goes into, not the other way around.",
+   [
+    ("Older homes, new tile that fits the house",
+     "Many Phoenix homes were built in the 1930s through the 1980s, and their bathrooms and kitchens carry the character of their era. A 1930s Tudor or Spanish Colonial home may still have its original pink-tiled bathroom, plaster walls, and coved ceilings. New tile in a house like that works best when it respects the period, with subway tile, handpainted Mexican tile, or a patterned floor that suits the room, while the waterproofing and setting materials underneath are modern and built to last."),
+    ("Showers and bathrooms in older Phoenix homes",
+     "Bathrooms in older homes are often smaller than the ones built today, and the layout needs rethinking before tile goes in. We look at the existing shower pan and walls, the plumbing, and where a niche, bench, or larger shower would actually fit. Waterproofing comes first, then the tile layout, so the finished shower holds up and the grout lines stay straight."),
+    ("Kitchens and floors across Phoenix",
+     "Kitchen tile in Phoenix runs from a simple backsplash to a full floor through the kitchen and living areas. Backsplash tile is cut around outlets, windows, and cabinets, with clean edges where tile meets the counter. Tile floors need subfloor prep and leveling first, so tiles sit flat and do not crack later, and transitions are finished clean where tile meets wood or carpet in the next room."),
+   ],
+   [
+    ("Do you work in Phoenix historic districts?",
+     "Yes, for interior tile work. Interior work generally proceeds with a normal permit. Exterior changes in a designated historic district usually need historic preservation review first, so tell us if your home is in one and we will talk through what applies."),
+    ("Can you match old tile in my bathroom?",
+     "Sometimes. It depends on whether spare tile is available, or a suitable replacement in the same size, thickness, and shade. Even the same product can vary between batches. Send photos and we will tell you plainly whether a match is likely, or whether a wider replacement makes more sense."),
+    ("How long does a shower retile take?",
+     "It depends on the size and condition of the shower, and what we find once the old tile comes off. Ask at the estimate and we will give you a timeline for your specific shower, not a generic one."),
+   ],
+   [("Scottsdale", "tile-installation-scottsdale-az.html"), ("Cave Creek", "tile-installation-cave-creek-az.html"), ("Anthem", "tile-installation-anthem-az.html")]),
+  "services.html",
+  faq_schema([
+    ("Do you work in Phoenix historic districts?", "Yes, for interior tile work. Interior work generally proceeds with a normal permit. Exterior changes in a designated historic district usually need historic preservation review first, so tell us if your home is in one and we will talk through what applies."),
+    ("Can you match old tile in my bathroom?", "Sometimes. It depends on whether spare tile is available, or a suitable replacement in the same size, thickness, and shade. Even the same product can vary between batches. Send photos and we will tell you plainly whether a match is likely, or whether a wider replacement makes more sense."),
+    ("How long does a shower retile take?", "It depends on the size and condition of the shower, and what we find once the old tile comes off. Ask at the estimate and we will give you a timeline for your specific shower, not a generic one."),
+  ])),
+ "tile-installation-scottsdale-az.html": (
+  "Tile Installation in Scottsdale, AZ | A.S. Remodeling",
+  "Tile installation in Scottsdale, AZ: large format tile, marble, and high-end showers and bathrooms, installed with careful prep.",
+  city_body(
+   "Scottsdale",
+   "Scottsdale is where large format tile and natural stone show up most. Primary bathrooms here often ask for large format porcelain or marble walls, a frameless glass enclosure, and a freestanding soaking tub, with fewer grout lines and a clean, open feel. That look only works if the prep underneath is right.",
+   [
+    ("Large format tile needs a flat floor and a careful layout",
+     "Large format tile is a dominant look in Scottsdale luxury bathrooms, and it is also the least forgiving. A large tile shows every dip in the floor or wall, so we check slab and wall flatness first, plan movement joints, and lay out full and cut pieces before setting anything. In Arizona heat, with wide temperature swings between seasons, the setting material and the substrate preparation matter as much as the tile itself."),
+    ("Marble and natural stone in showers",
+     "Natural stone, marble, and travertine are common requests in Scottsdale, and they behave differently in a shower than in a dry room. Marble and travertine need sealing suited to the specific stone and to wet use, and the maintenance is different from porcelain. We talk through that before you commit to the material, so you know what the tile will need after it is installed."),
+    ("Primary bathrooms and slab-on-grade homes",
+     "Many Scottsdale homes are single-story and slab-on-grade, which means moving plumbing for a larger shower or a new layout can require cutting concrete. That is a decision to make before ordering tile, not after. We look at the existing layout, the slab, and the fixtures, and plan the tile around what the room can actually support."),
+   ],
+   [
+    ("Should I order large format tile before the floor is reviewed?",
+     "No. A sample and the product details help us discuss the layout, but have the existing surface, finished heights, and preparation needs reviewed before committing to the full order. Tile size alone does not tell us whether a floor is suitable."),
+    ("Can marble go in a shower?",
+     "Yes, with the right stone, the right sealing, and the right maintenance. Marble in a wet area needs more care than porcelain. We will tell you what that care looks like for the specific stone you choose."),
+    ("What grout works with large format tile?",
+     "It depends on the tile, the joint width, and the room. Large format work often uses narrow joints, and the grout color is matched to the tile so the lines do not fight the pattern. We go over that at the estimate."),
+   ],
+   [("Phoenix", "tile-installation-phoenix-az.html"), ("Cave Creek", "tile-installation-cave-creek-az.html"), ("Anthem", "tile-installation-anthem-az.html")]),
+  "services.html",
+  faq_schema([
+    ("Should I order large format tile before the floor is reviewed?", "No. A sample and the product details help us discuss the layout, but have the existing surface, finished heights, and preparation needs reviewed before committing to the full order. Tile size alone does not tell us whether a floor is suitable."),
+    ("Can marble go in a shower?", "Yes, with the right stone, the right sealing, and the right maintenance. Marble in a wet area needs more care than porcelain. We will tell you what that care looks like for the specific stone you choose."),
+    ("What grout works with large format tile?", "It depends on the tile, the joint width, and the room. Large format work often uses narrow joints, and the grout color is matched to the tile so the lines do not fight the pattern. We go over that at the estimate."),
+  ])),
+ "tile-installation-cave-creek-az.html": (
+  "Tile Installation in Cave Creek, AZ | A.S. Remodeling",
+  "Tile installation in Cave Creek, AZ: indoor-outdoor tile, patios, showers, and bathroom tile for desert homes.",
+  city_body(
+   "Cave Creek",
+   "Cave Creek is desert living, with covered patios, pools, and homes that open to the outdoors. Many homes here, including the Tatum Ranch homes built in the 1990s, have tile floors through the main living areas, a covered patio off the kitchen, and a primary bath designed to feel like a spa. Tile work here has to handle sun, water, and the step between inside and outside.",
+   [
+    ("Indoor-outdoor tile, done as one decision",
+     "A lot of Cave Creek homes have an accordion glass wall or a wide sliding door between the kitchen and the patio, so the tile inside and outside is really one surface. The same tile can work in both places, but only if it is rated for outdoor use, and only if the doorway, floor heights, and drainage are planned first. We check those before deciding how the two areas should meet."),
+    ("Patios, pools, and outdoor living",
+     "Covered patios, outdoor kitchens, fireplaces, and pools are part of everyday life in Cave Creek. Outdoor tile needs to suit the sun and the water it will see, and the joints need room for movement. New tile will not fix a drainage problem underneath it, so we look at where water collects after rain, and at the thresholds and steps, before setting anything."),
+    ("Bathrooms and floors in Cave Creek homes",
+     "Inside, tile floors are common through the whole home, often in a travertine Versailles pattern or a large format porcelain. Primary baths often have dual vanities, a deep soaking tub, and a separate tiled shower. We install the tile, the shower walls and floors, and the backsplashes that tie the kitchen and bath together, with the same prep and waterproofing we use everywhere else."),
+   ],
+   [
+    ("Can I use the same tile inside and outside?",
+     "Sometimes, but the tile must be rated for both uses. We also need to check the doorway, floor heights, and outdoor drainage before deciding how the two areas should meet."),
+    ("Will patio tile hold up in the Cave Creek sun?",
+     "It can, if the tile is rated for outdoor use and the installation allows for movement and drainage. Dark tile and direct sun need extra care in the layout, and we will talk through that for your specific patio."),
+    ("Do you install pool tile?",
+     "We install tile around pools and in pool areas as part of a tile project. Tell us about the pool, the existing surface, and what needs work, and we will tell you what we can take on."),
+   ],
+   [("Phoenix", "tile-installation-phoenix-az.html"), ("Scottsdale", "tile-installation-scottsdale-az.html"), ("Anthem", "tile-installation-anthem-az.html")]),
+  "services.html",
+  faq_schema([
+    ("Can I use the same tile inside and outside?", "Sometimes, but the tile must be rated for both uses. We also need to check the doorway, floor heights, and outdoor drainage before deciding how the two areas should meet."),
+    ("Will patio tile hold up in the Cave Creek sun?", "It can, if the tile is rated for outdoor use and the installation allows for movement and drainage. Dark tile and direct sun need extra care in the layout, and we will talk through that for your specific patio."),
+    ("Do you install pool tile?", "We install tile around pools and in pool areas as part of a tile project. Tell us about the pool, the existing surface, and what needs work, and we will tell you what we can take on."),
+  ])),
+ "tile-installation-anthem-az.html": (
+  "Tile Installation in Anthem, AZ | A.S. Remodeling",
+  "Tile installation in Anthem, AZ: updating 1990s and 2000s bathrooms, kitchens, and floors in Parkside and Anthem Country Club.",
+  city_body(
+   "Anthem",
+   "Anthem is a master-planned community built mostly from the late 1990s through the 2000s, split between Anthem Parkside and the gated Anthem Country Club, built between 1999 and 2006. Those homes are now at the age where kitchens, baths, flooring, and windows need attention, and homes with original 2000s finishes sell for less than comparable homes that have been updated.",
+   [
+    ("Updating 2000s bathrooms and kitchens",
+     "The most common Anthem ask is a bathroom or kitchen that finally matches the house. Larger primary showers, a tiled shower with a niche and bench, a new backsplash, and tile floors through the main living areas are the usual starting points. We look at the existing layout first, then talk through tile, grout, and layout before anything is ordered."),
+    ("Floors through the house",
+     "Many Anthem homes still have their original flooring in the main living areas, with carpet in the bedrooms and tile in the baths. Replacing it with tile through the kitchen, living room, and hallways makes the house feel bigger and easier to keep clean, but the transitions to the bedrooms, the door clearances, and the finished heights all need planning first."),
+    ("Permits and design review in Anthem",
+     "Anthem is unincorporated, so building permits come from Maricopa County, while exterior changes typically go through the community design review before work starts. Interior tile work is different from an exterior change, but tell us if your project touches the outside of the home, or if your HOA asks for a submittal, and we will talk through what applies before we start."),
+   ],
+   [
+    ("Do I need HOA approval for interior tile work?",
+     "Interior tile work usually does not need the same approval as an exterior change, but every community is different. If your HOA asks for a submittal, tell us and we will help you work out what it needs."),
+    ("Can you work in the gated Anthem Country Club?",
+     "Yes. Tell us which gate and what access your home needs, and we will plan the visit around it."),
+    ("How long does a bathroom retile take in Anthem?",
+     "It depends on the size and condition of the bathroom, and what we find once the old tile comes off. Ask at the estimate and we will give you a timeline for your specific bathroom."),
+   ],
+   [("Phoenix", "tile-installation-phoenix-az.html"), ("Scottsdale", "tile-installation-scottsdale-az.html"), ("Cave Creek", "tile-installation-cave-creek-az.html")]),
+  "services.html",
+  faq_schema([
+    ("Do I need HOA approval for interior tile work?", "Interior tile work usually does not need the same approval as an exterior change, but every community is different. If your HOA asks for a submittal, tell us and we will help you work out what it needs."),
+    ("Can you work in the gated Anthem Country Club?", "Yes. Tell us which gate and what access your home needs, and we will plan the visit around it."),
+    ("How long does a bathroom retile take in Anthem?", "It depends on the size and condition of the bathroom, and what we find once the old tile comes off. Ask at the estimate and we will give you a timeline for your specific bathroom."),
+  ])),
+ "service-areas.html": (
+  "Service Areas | Tile Installation in Phoenix, Scottsdale, Cave Creek & Anthem | A.S. Remodeling",
+  "A.S. Remodeling installs tile in Phoenix, Scottsdale, Cave Creek, and Anthem, AZ: showers, bathroom tile, kitchen backsplash, and tile floors.",
+  """<main class="wrap page-head"><h1>Service Areas</h1>
+<p class="lede">We install tile in Phoenix, Scottsdale, Cave Creek, and Anthem. Each city has its own page, with what tile work there usually involves and what to check before you start.</p>
+<div class="cards">
+<div class="card"><h3>Phoenix</h3><p>From 1950s ranches in North Central to historic homes in Willo and Roosevelt, tile that fits the house it goes into.</p><p><a href="tile-installation-phoenix-az.html">Tile installation in Phoenix</a></p></div>
+<div class="card"><h3>Scottsdale</h3><p>Large format tile, marble, and high-end primary bathrooms, with careful prep for desert heat and slab-on-grade homes.</p><p><a href="tile-installation-scottsdale-az.html">Tile installation in Scottsdale</a></p></div>
+<div class="card"><h3>Cave Creek</h3><p>Indoor-outdoor tile, patios, pools, and spa-inspired baths for desert homes that open to the outdoors.</p><p><a href="tile-installation-cave-creek-az.html">Tile installation in Cave Creek</a></p></div>
+<div class="card"><h3>Anthem</h3><p>Updating 1990s and 2000s bathrooms, kitchens, and floors in Parkside and Anthem Country Club.</p><p><a href="tile-installation-anthem-az.html">Tile installation in Anthem</a></p></div>
+</div>
+<p>Call <a href="tel:+16028841904">(602) 884-1904</a> to talk through your project and set up a free estimate.</p></main>""",
+  "service-areas.html"),
 }
 
 CSS = """
@@ -331,8 +495,10 @@ def main():
     # Copy it into dist/ so the header and favicon can use it.
     shutil.copyfile(pathlib.Path(__file__).parent / "as-remodeling-logo.svg", OUT / "as-remodeling-logo.svg")
     shutil.copyfile(pathlib.Path(__file__).parent / "as-remodeling-logo-horizontal.svg", OUT / "as-remodeling-logo-horizontal.svg")
-    for slug, (title, desc, body, active) in PAGES.items():
-        (OUT / slug).write_text(page(slug, title, desc, body, active), encoding="utf-8")
+    for slug, entry in PAGES.items():
+        title, desc, body, active = entry[:4]
+        extra = entry[4] if len(entry) > 4 else None
+        (OUT / slug).write_text(page(slug, title, desc, body, active, extra), encoding="utf-8")
     (OUT / "style.css").write_text(CSS, encoding="utf-8")
     urls = "".join(f"<url><loc>https://www.asremodelingllc.com/{s if s != 'index.html' else ''}</loc></url>\n" for s in PAGES)
     (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
