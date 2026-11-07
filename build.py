@@ -38,7 +38,7 @@ def header(active):
         for label, href in NAV
     )
     return f"""<header><div class="wrap bar">
-<a class="brand" href="index.html"><img class="logo" src="as-remodeling-logo.svg" alt="A.S. Remodeling LLC" width="63" height="52"></a>
+<a class="brand" href="index.html"><img class="logo" src="as-remodeling-logo-horizontal.svg" alt="A.S. Remodeling LLC" width="189" height="46"></a>
 <nav>{links}</nav>
 <a class="call" href="tel:{PHONE_TEL}">Call {PHONE}</a>
 </div></header>"""
@@ -251,7 +251,7 @@ a{color:var(--terra-dark)}
 header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,253,248,.97);z-index:10;backdrop-filter:blur(6px)}
 .bar{display:flex;gap:18px;align-items:center;flex-wrap:wrap;padding:14px 24px}
 .brand{font-family:Georgia,serif;font-weight:700;text-decoration:none;color:var(--ink);font-size:1.25rem;display:flex;align-items:center;gap:10px}
-.brand img.logo{height:52px;width:auto;display:block}
+.brand img.logo{height:46px;width:auto;display:block}
 .mark{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--teal);color:#fff;font-family:system-ui,sans-serif;font-weight:800;font-size:.85rem;letter-spacing:.04em}
 nav a{margin-right:16px;text-decoration:none;color:var(--ink-soft);font-weight:600;font-size:.95rem}
 nav a:hover{color:var(--terra-dark)}
@@ -330,6 +330,7 @@ def main():
     # Aleks's real logo (SVG traced 2026-11-07 from his low-res JPEG).
     # Copy it into dist/ so the header and favicon can use it.
     shutil.copyfile(pathlib.Path(__file__).parent / "as-remodeling-logo.svg", OUT / "as-remodeling-logo.svg")
+    shutil.copyfile(pathlib.Path(__file__).parent / "as-remodeling-logo-horizontal.svg", OUT / "as-remodeling-logo-horizontal.svg")
     for slug, (title, desc, body, active) in PAGES.items():
         (OUT / slug).write_text(page(slug, title, desc, body, active), encoding="utf-8")
     (OUT / "style.css").write_text(CSS, encoding="utf-8")
