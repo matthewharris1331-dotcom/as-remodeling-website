@@ -48,6 +48,7 @@ FOOTER = f"""<footer><div class="wrap footgrid">
 <p class="footbrand">A.S. Remodeling LLC</p>
 <p>Licensed, bonded and insured AZ tile specialty contractor, {ROC}. Serving {AREAS}.</p>
 <p>Hours: Monday to Friday, 8am to 5pm</p>
+<p class="credit">City photos: Wikimedia Commons contributors, CC BY and CC BY-SA licences.</p>
 </div>
 <div>
 <p class="foothead">Services</p>
@@ -86,7 +87,6 @@ def page(slug, title, desc, body, active, extra_schema=None):
 </head>
 <body>
 {header(active)}
-<main>
 {body}
 <section class="cta"><div class="wrap cta-inner">
 <div>
@@ -95,7 +95,6 @@ def page(slug, title, desc, body, active, extra_schema=None):
 </div>
 <p class="cta-btns"><a class="btn" href="contact.html">Get a Free Estimate</a> <a class="btn secondary" href="tel:{PHONE_TEL}">Call {PHONE}</a></p>
 </div></section>
-</main>
 {FOOTER}
 </body>
 </html>
@@ -106,6 +105,13 @@ def photo(caption):
 
 def photo_img(filename, alt):
     return f'<div class="photo real"><img src="images/{filename}" alt="{alt}" loading="lazy"></div>'
+
+CITY_PHOTOS = {
+ "Phoenix": ("city-phoenix.jpg", "Downtown Phoenix skyline with desert mountains"),
+ "Scottsdale": ("city-scottsdale.jpg", "Scottsdale, Arizona, seen from the desert hills"),
+ "Cave Creek": ("city-cave-creek.jpg", "Cave Creek, Arizona"),
+ "Anthem": ("city-anthem.jpg", "Daisy Mountain in Anthem, Arizona"),
+}
 
 def gallery_img(filename, alt):
     return f'<div class="photo real"><img src="images/{filename}" alt="{alt}" loading="lazy"></div>'
@@ -133,7 +139,7 @@ def city_body(city, intro, sections, faqs, others):
     return (
         f'<main class="wrap page-head"><h1>Tile Installation in {city}, AZ</h1>'
         f'<p class="lede">{intro}</p>'
-        + photo(f"Photo: finished tile work in {city}")
+        + photo_img(CITY_PHOTOS[city][0], CITY_PHOTOS[city][1])
         + secs
         + '<h2>What we review before tile work in ' + city + '</h2>'
         + '<ul class="checklist"><li>The room, the material, and what you want changed</li>'
@@ -153,7 +159,7 @@ def service_city_body(service, city, intro, sections, faqs, city_href, service_h
     return (
         f'<main class="wrap page-head"><h1>{service} in {city}, AZ</h1>'
         f'<p class="lede">{intro}</p>'
-        + photo(f"Photo: finished {service.lower()} in {city}")
+        + photo_img(CITY_PHOTOS[city][0], CITY_PHOTOS[city][1])
         + secs
         + '<h2>What we review before ' + service.lower() + ' in ' + city + '</h2>'
         + '<ul class="checklist"><li>The room, the material, and what you want changed</li>'
@@ -254,7 +260,7 @@ PAGES = {
  "gallery.html": (
   "Project Gallery | Tile Work in Phoenix, AZ | A.S. Remodeling",
   "Finished tile work by A.S. Remodeling in Phoenix, Cave Creek, Anthem, and Scottsdale.",
-  "<main class=\"wrap page-head\"><h1>Project Gallery</h1><p class=\"lede\">Finished A.S. Remodeling jobs, pulled from the current website. More photos can be added once Aleks confirms which jobs they show and which city each was in.</p>"
+  "<main class=\"wrap page-head\"><h1>Project Gallery</h1><p class=\"lede\">Finished tile work from A.S. Remodeling jobs.</p>"
   + '<div class="gallery">'
   + gallery_img("shower-black.jpg", "Finished shower with black tile and bench")
   + gallery_img("bathroom-white.jpg", "Finished bathroom with tile floor and walls")
@@ -268,14 +274,14 @@ PAGES = {
   + gallery_img("shower-glass.jpg", "Finished glass shower")
   + gallery_img("kitchen-white.jpg", "Finished white kitchen with tile backsplash")
   + gallery_img("fireplace-herringbone.jpg", "Finished fireplace with black herringbone tile")
-  + "</div><p>Photos are finished A.S. Remodeling jobs, pulled from the current website. They carry no city label, because the source files do not say which city each job was in.</p></main>",
+  + "</div></main>",
   "gallery.html"),
  "about.html": (
   "About A.S. Remodeling | Tile Installer in Phoenix, AZ",
   "A.S. Remodeling is a family-owned tile installer serving Phoenix, Cave Creek, Anthem, and Scottsdale, AZ.",
   f"""<main class="wrap page-head"><h1>About A.S. Remodeling</h1><p class="lede">{PITCH}</p>
 <p>A.S. Remodeling LLC is a licensed, bonded and insured AZ tile specialty contractor, {ROC}, serving {AREAS}.</p>
-<p><img src="images/aleks-portrait.jpg" alt="Aleks, A.S. Remodeling" style="width:100%;max-width:520px;border-radius:16px;display:block"></p>
+<h2>Meet Aleks</h2><figure class="portrait"><img src="images/aleks-portrait.jpg" alt="Aleks, A.S. Remodeling"><figcaption>Aleks, A.S. Remodeling</figcaption></figure>
 <p>Copy on this staging page is carried over from the current site and the drafted service pages. Aleks must confirm the history and project claims before this page goes live.</p>
 <ul class="checklist">
 <li>Family-owned, one craftsman on every job</li>
@@ -429,10 +435,10 @@ document.getElementById('estimate-form').addEventListener('submit', function(e) 
   """<main class="wrap page-head"><h1>Service Areas</h1>
 <p class="lede">We install tile in Phoenix, Scottsdale, Cave Creek, and Anthem. Each city has its own page, with what tile work there usually involves and what to check before you start.</p>
 <div class="cards">
-<div class="card"><h3>Phoenix</h3><p>From 1950s ranches in North Central to historic homes in Willo and Roosevelt, tile that fits the house it goes into.</p><p><a href="tile-installation-phoenix-az.html">Tile installation in Phoenix</a></p></div>
-<div class="card"><h3>Scottsdale</h3><p>Large format tile, marble, and high-end primary bathrooms, with careful prep for desert heat and slab-on-grade homes.</p><p><a href="tile-installation-scottsdale-az.html">Tile installation in Scottsdale</a></p></div>
-<div class="card"><h3>Cave Creek</h3><p>Indoor-outdoor tile, patios, pools, and spa-inspired baths for desert homes that open to the outdoors.</p><p><a href="tile-installation-cave-creek-az.html">Tile installation in Cave Creek</a></p></div>
-<div class="card"><h3>Anthem</h3><p>Updating 1990s and 2000s bathrooms, kitchens, and floors in Parkside and Anthem Country Club.</p><p><a href="tile-installation-anthem-az.html">Tile installation in Anthem</a></p></div>
+<div class="card"><img src="images/city-phoenix.jpg" alt="Downtown Phoenix skyline with desert mountains" loading="lazy"><h3>Phoenix</h3><p>From 1950s ranches in North Central to historic homes in Willo and Roosevelt, tile that fits the house it goes into.</p><p><a href="tile-installation-phoenix-az.html">Tile installation in Phoenix</a></p></div>
+<div class="card"><img src="images/city-scottsdale.jpg" alt="Scottsdale, Arizona, seen from the desert hills" loading="lazy"><h3>Scottsdale</h3><p>Large format tile, marble, and high-end primary bathrooms, with careful prep for desert heat and slab-on-grade homes.</p><p><a href="tile-installation-scottsdale-az.html">Tile installation in Scottsdale</a></p></div>
+<div class="card"><img src="images/city-cave-creek.jpg" alt="Cave Creek, Arizona" loading="lazy"><h3>Cave Creek</h3><p>Indoor-outdoor tile, patios, pools, and spa-inspired baths for desert homes that open to the outdoors.</p><p><a href="tile-installation-cave-creek-az.html">Tile installation in Cave Creek</a></p></div>
+<div class="card"><img src="images/city-anthem.jpg" alt="Daisy Mountain in Anthem, Arizona" loading="lazy"><h3>Anthem</h3><p>Updating 1990s and 2000s bathrooms, kitchens, and floors in Parkside and Anthem Country Club.</p><p><a href="tile-installation-anthem-az.html">Tile installation in Anthem</a></p></div>
 </div>
 <p>Call <a href="tel:+16028841904">(602) 884-1904</a> to talk through your project and set up a free estimate.</p></main>""",
   "service-areas.html"),
@@ -681,6 +687,11 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .photo.real{display:block;padding:0;background:#dfe8e4}
 .photo.real img{width:100%;height:100%;min-height:260px;object-fit:cover;display:block}
 .gallery .photo.real img{min-height:220px}
+.portrait{max-width:420px;margin:22px 0}
+.portrait img{width:100%;border-radius:16px;display:block}
+.portrait figcaption{font-size:.9rem;color:var(--ink-soft);margin-top:8px}
+.card img{width:100%;border-radius:12px;display:block;margin-bottom:12px}
+.credit{font-size:.8rem;color:var(--ink-soft)}
 /* CTA + footer */
 .cta{background:var(--teal);color:#fff;margin-top:56px}
 .cta-inner{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:40px 24px}
