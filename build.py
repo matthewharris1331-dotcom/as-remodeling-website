@@ -136,6 +136,26 @@ def city_body(city, intro, sections, faqs, others):
         + '<li>Scheduling, access, and how the work fits around your home</li></ul>'
         + '<h2>Questions about tile work in ' + city + '</h2>' + faq_html
         + '<p>Also serving: ' + other_links + '. See all <a href="service-areas.html">service areas</a>.</p>'
+        + ('<p>Tile work in ' + city + ': <a href="shower-tile-' + city.lower().replace(' ', '-') + '-az.html">Shower tile</a>, <a href="bathroom-tile-' + city.lower().replace(' ', '-') + '-az.html">Bathroom tile</a>, <a href="kitchen-backsplash-' + city.lower().replace(' ', '-') + '-az.html">Kitchen backsplash</a>.</p>' if city in ('Scottsdale', 'Phoenix') else '')
+        + '<p>Call <a href="tel:+16028841904">(602) 884-1904</a> to talk through your project and set up a free estimate.</p></main>'
+    )
+
+
+def service_city_body(service, city, intro, sections, faqs, city_href, service_href):
+    secs = "".join(f"<h2>{h}</h2><p>{t}</p>" for h, t in sections)
+    faq_html = "".join(f"<h3>{q}</h3><p>{a}</p>" for q, a in faqs)
+    return (
+        f'<main class="wrap page-head"><h1>{service} in {city}, AZ</h1>'
+        f'<p class="lede">{intro}</p>'
+        + photo(f"Photo: finished {service.lower()} in {city}")
+        + secs
+        + '<h2>What we review before ' + service.lower() + ' in ' + city + '</h2>'
+        + '<ul class="checklist"><li>The room, the material, and what you want changed</li>'
+        + '<li>The existing surface, and the waterproofing and prep it needs</li>'
+        + '<li>Layout, grout lines, and the details around fixtures and edges</li>'
+        + '<li>Scheduling, access, and how the work fits around your home</li></ul>'
+        + '<h2>Questions about ' + service.lower() + ' in ' + city + '</h2>' + faq_html
+        + f'<p>More: <a href="{city_href}">Tile installation in {city}</a> and <a href="{service_href}">{service}</a>. See all <a href="service-areas.html">service areas</a>.</p>'
         + '<p>Call <a href="tel:+16028841904">(602) 884-1904</a> to talk through your project and set up a free estimate.</p></main>'
     )
 
@@ -396,6 +416,186 @@ document.getElementById('estimate-form').addEventListener('submit', function(e) 
 </div>
 <p>Call <a href="tel:+16028841904">(602) 884-1904</a> to talk through your project and set up a free estimate.</p></main>""",
   "service-areas.html"),
+ "shower-tile-scottsdale-az.html": (
+  "Shower Tile Installation in Scottsdale, AZ | A.S. Remodeling",
+  "Shower tile installation in Scottsdale, AZ: curbless and walk-in showers, large format tile and marble, with full waterproofing first.",
+  service_city_body(
+   "Shower Tile Installation",
+   "Scottsdale",
+   "Scottsdale showers range from compact layouts in mid-century ranch homes near Old Town to larger primary suites in custom builds in Gainey Ranch and DC Ranch. The larger suites have room for a curbless shower, a freestanding tub, and separate vanities, while the smaller homes need the layout planned carefully before tile goes in.",
+   [
+    ("Curbless and walk-in showers",
+     "A curbless shower has no step or curb at the entry, so the tile floor runs unbroken into the shower with a linear drain and frameless glass. It reads larger and calmer, and it needs precise waterproofing and drainage planning to work. We install a full waterproofing membrane on the walls and pan before tile goes on, because Scottsdale dry air does not remove the moisture risk inside a shower. Daily use creates localized humidity that can wear down a poorly waterproofed shower over time."),
+    ("Large format tile and marble shower walls",
+     "Large format porcelain or stone tile on shower walls, in 24 by 48 inch formats and larger, gives fewer grout lines and a clean, open feel, but only on a flat substrate with tight tolerances. Marble and honed natural stone give a depth that printed tile cannot match, and they need sealing suited to wet use and more care after installation. Marble-look porcelain is the lower-care alternative when you want the look without the maintenance."),
+    ("Tub-to-shower conversions",
+     "Replacing a tub-shower combo with a walk-in shower is a common ask in Scottsdale, especially in homes where the original tub is rarely used. We look at the existing plumbing, the drain, and the slab before planning the new shower, because moving plumbing in a slab-on-grade home can require cutting concrete. The shower footprint, the niche and bench, and the glass are planned before demolition, so the tile layout is settled before anything is ordered."),
+   ],
+   [
+    ("Can I replace my shower without moving the plumbing?",
+     "Often, yes, if the new shower fits the existing drain and layout. If you want a larger shower or a different layout, the plumbing may need to move, and that is a decision to make before ordering tile."),
+    ("Does a curbless shower need special waterproofing?",
+     "Yes. A curbless shower needs a full waterproofing membrane, a correctly sloped floor, and a drain planned for the whole shower, not just the center. We go over that at the estimate for your specific shower."),
+    ("Marble or porcelain for shower walls?",
+     "Marble is beautiful and needs sealing and more care in a wet area. Porcelain, including marble-look porcelain, is more forgiving and easier to maintain. We will talk through the care each one needs before you choose."),
+   ],
+   "tile-installation-scottsdale-az.html", "shower-tile-installation.html"),
+  "services.html",
+  faq_schema([
+    ("Can I replace my shower without moving the plumbing?", "Often, yes, if the new shower fits the existing drain and layout. If you want a larger shower or a different layout, the plumbing may need to move, and that is a decision to make before ordering tile."),
+    ("Does a curbless shower need special waterproofing?", "Yes. A curbless shower needs a full waterproofing membrane, a correctly sloped floor, and a drain planned for the whole shower, not just the center. We go over that at the estimate for your specific shower."),
+    ("Marble or porcelain for shower walls?", "Marble is beautiful and needs sealing and more care in a wet area. Porcelain, including marble-look porcelain, is more forgiving and easier to maintain. We will talk through the care each one needs before you choose."),
+  ])),
+ "shower-tile-phoenix-az.html": (
+  "Shower Tile Installation in Phoenix, AZ | A.S. Remodeling",
+  "Shower tile installation in Phoenix, AZ: showers in older homes, tub-to-shower conversions, and tile that fits the house.",
+  service_city_body(
+   "Shower Tile Installation",
+   "Phoenix",
+   "Phoenix showers are often in smaller bathrooms than the ones built today, in homes from the 1930s through the 1980s. Plumbing is often stacked close together, which limits how much a layout can shift, and the tile has to work with the room it is in, not against it.",
+   [
+    ("Small bathrooms, planned layouts",
+     "Bathrooms in older Phoenix homes are often smaller footprints, so the shower layout needs rethinking before tile goes in. Accent walls, borders, and niches can add detail without overwhelming the room, and the tile layout is planned around the existing plumbing and the size of the shower. We look at the shower pan and walls first, then talk through what fits, so the finished shower feels bigger than it is."),
+    ("Tub-to-shower conversions in older homes",
+     "Replacing a tub with a walk-in shower is a common ask in Phoenix, and what we find once the old tile comes off matters. Old shower pans, walls, and waterproofing are often past their best, so we plan the new pan, the membrane, and the drain before setting tile. A curbless entry or a low threshold is possible in many homes, but it depends on the floor and the drain, and we will tell you plainly what your shower can support."),
+    ("Tile choices that fit the house",
+     "A shower in a historic home in Willo or Encanto-Palmcroft does not need the same tile as a new build. Subway, hexagon, mosaic, and glass accents suit period bathrooms, and a patterned floor can carry the character of the house without making the room feel busy. We help you choose tile that fits the home, then install it with the modern waterproofing underneath that keeps it looking right for years."),
+   ],
+   [
+    ("Can you match the old tile in my shower?",
+     "Sometimes. It depends on whether spare tile is available, or a suitable replacement in the same size, thickness, and shade. Even the same product can vary between batches. Send photos and we will tell you plainly whether a match is likely."),
+    ("Do you work in Phoenix historic districts?",
+     "Yes, for interior tile work. Interior work generally proceeds with a normal permit. Exterior changes in a designated historic district usually need historic preservation review first, so tell us if your home is in one."),
+    ("Can I keep my tub and just retile the surround?",
+     "Often, yes, if the tub and the walls behind the tile are in good condition. We check the existing surface first, then talk through whether a retile or a wider replacement makes more sense."),
+   ],
+   "tile-installation-phoenix-az.html", "shower-tile-installation.html"),
+  "services.html",
+  faq_schema([
+    ("Can you match the old tile in my shower?", "Sometimes. It depends on whether spare tile is available, or a suitable replacement in the same size, thickness, and shade. Even the same product can vary between batches. Send photos and we will tell you plainly whether a match is likely."),
+    ("Do you work in Phoenix historic districts?", "Yes, for interior tile work. Interior work generally proceeds with a normal permit. Exterior changes in a designated historic district usually need historic preservation review first, so tell us if your home is in one."),
+    ("Can I keep my tub and just retile the surround?", "Often, yes, if the tub and the walls behind the tile are in good condition. We check the existing surface first, then talk through whether a retile or a wider replacement makes more sense."),
+  ])),
+ "bathroom-tile-scottsdale-az.html": (
+  "Bathroom Tile Installation in Scottsdale, AZ | A.S. Remodeling",
+  "Bathroom tile installation in Scottsdale, AZ: large format floors, marble walls, and primary and guest bathrooms, installed with careful prep.",
+  service_city_body(
+   "Bathroom Tile Installation",
+   "Scottsdale",
+   "Scottsdale bathrooms span a wide range of home styles and sizes, from compact layouts in mid-century ranch homes near Old Town to larger primary suites in custom builds in Gainey Ranch and DC Ranch. The tile work is different in each, and the prep underneath matters more than the tile on top.",
+   [
+    ("Bathroom floors that sit flat",
+     "Large format porcelain or stone tile on bathroom floors needs a flat substrate first, with movement joints planned and the layout settled before setting. In Arizona heat, with wide temperature swings between seasons, the setting material and the substrate preparation matter as much as the tile itself. Epoxy grout is available for homeowners who want the most stain-resistant and moisture-resistant grout, especially where water contact with the floor tile is constant."),
+    ("Primary bathrooms, walls and vanities",
+     "A primary bathroom in Scottsdale often asks for large format tile on the walls, a freestanding tub, and separate vanities, with a curbless shower and frameless glass. We plan the wall tile, the niche and bench, and the transitions to the floor as one layout, so the grout lines stay straight and the room reads calm. Marble and natural stone need sealing suited to wet use, and we talk through that care before you commit."),
+    ("Guest baths and powder rooms",
+     "Guest baths and powder rooms are smaller, and the tile can carry more personality there without overwhelming the room. A patterned floor, a mosaic accent, or a bold wall tile works in a small room when the layout is planned around the vanity, the mirror, and the door swing. We keep the details in proportion to the room, so the finished bath feels intentional, not busy."),
+   ],
+   [
+    ("Is epoxy grout worth it in a bathroom?",
+     "It can be, especially in a shower or on a floor that sees a lot of water. Epoxy grout is more stain-resistant and moisture-resistant than standard grout, and it costs more to install. We will talk through whether it fits your bathroom."),
+    ("Can tile run from the bathroom floor into the shower?",
+     "Yes, in many bathrooms, and it makes the room feel larger. It needs the right tile for wet use, a correctly sloped shower floor, and a drain planned for the whole area."),
+    ("Large format tile on a bathroom floor, is the slab flat enough?",
+     "That depends on your floor, and we check it before ordering tile. Large format tile shows every dip, so flatness is checked first, and leveling is planned before setting anything."),
+   ],
+   "tile-installation-scottsdale-az.html", "bathroom-tile-remodeling.html"),
+  "services.html",
+  faq_schema([
+    ("Is epoxy grout worth it in a bathroom?", "It can be, especially in a shower or on a floor that sees a lot of water. Epoxy grout is more stain-resistant and moisture-resistant than standard grout, and it costs more to install. We will talk through whether it fits your bathroom."),
+    ("Can tile run from the bathroom floor into the shower?", "Yes, in many bathrooms, and it makes the room feel larger. It needs the right tile for wet use, a correctly sloped shower floor, and a drain planned for the whole area."),
+    ("Large format tile on a bathroom floor, is the slab flat enough?", "That depends on your floor, and we check it before ordering tile. Large format tile shows every dip, so flatness is checked first, and leveling is planned before setting anything."),
+  ])),
+ "bathroom-tile-phoenix-az.html": (
+  "Bathroom Tile Installation in Phoenix, AZ | A.S. Remodeling",
+  "Bathroom tile installation in Phoenix, AZ: floors, walls, and shower surrounds in older homes, with tile that fits the house.",
+  service_city_body(
+   "Bathroom Tile Installation",
+   "Phoenix",
+   "Bathrooms in older Phoenix homes are often smaller footprints, and the tile has to be planned around the room, not just the pattern. Porcelain and ceramic floors are selected for moisture exposure, and accent walls, borders, and niches add detail without overwhelming a small room.",
+   [
+    ("Floors and walls in small baths",
+     "A small bathroom needs the tile layout planned first, so the cuts fall where they should and the grout lines stay straight. We look at the existing floor, the walls, and the transitions to the hallway, then plan the tile around the vanity, the tub or shower, and the door. Tile floors need subfloor prep and leveling first, so tiles sit flat and do not crack later."),
+    ("Period bathrooms, kept in character",
+     "Many Phoenix bathrooms still carry the character of their era, from a 1930s pink-tiled bathroom to black-and-white floors and handpainted Mexican tile. New tile in a house like that works best when it respects the period, with subway tile, a patterned floor, or a mosaic that suits the room, while the waterproofing and setting materials underneath are modern and built to last."),
+    ("Shower and tub surrounds",
+     "The shower and tub surround is where waterproofing matters most. We check the existing pan and walls, plan the membrane and the drain, then set the tile with niches, benches, and trim planned before anything goes up. The finished surround should look clean and hold up, with grout lines that stay straight and edges finished where tile meets the tub or the wall."),
+   ],
+   [
+    ("Can you tile over my existing bathroom floor?",
+     "It depends on the condition of the existing floor and what is underneath it. Sometimes it works, and sometimes removal is the right call. We check the surface first, then tell you plainly which way makes sense for your bathroom."),
+    ("How do I choose tile for a small bathroom?",
+     "Start with the size of the room and the light it gets, then the tile size and pattern. Large tile can make a small room feel bigger, and a patterned floor can carry the room, but the layout has to be planned around the fixtures. Bring photos and we will talk through it at the estimate."),
+    ("Do you handle the whole bathroom remodel?",
+     "We lead with the tile and work with licensed trades for the rest. Ask us about your specific project and we will tell you plainly what we do ourselves and what we bring in help for."),
+   ],
+   "tile-installation-phoenix-az.html", "bathroom-tile-remodeling.html"),
+  "services.html",
+  faq_schema([
+    ("Can you tile over my existing bathroom floor?", "It depends on the condition of the existing floor and what is underneath it. Sometimes it works, and sometimes removal is the right call. We check the surface first, then tell you plainly which way makes sense for your bathroom."),
+    ("How do I choose tile for a small bathroom?", "Start with the size of the room and the light it gets, then the tile size and pattern. Large tile can make a small room feel bigger, and a patterned floor can carry the room, but the layout has to be planned around the fixtures. Bring photos and we will talk through it at the estimate."),
+    ("Do you handle the whole bathroom remodel?", "We lead with the tile and work with licensed trades for the rest. Ask us about your specific project and we will tell you plainly what we do ourselves and what we bring in help for."),
+  ])),
+ "kitchen-backsplash-scottsdale-az.html": (
+  "Kitchen Tile Backsplash Installation in Scottsdale, AZ | A.S. Remodeling",
+  "Kitchen backsplash installation in Scottsdale, AZ: marble, zellige, and large format backsplashes, set around cabinets, counters, and hoods.",
+  service_city_body(
+   "Kitchen Tile Backsplash Installation",
+   "Scottsdale",
+   "Scottsdale kitchens often pair quartz counters with a marble backsplash, or warm wood cabinets with zellige tile and brass details. The backsplash is where most of the kitchen personality lives, and it is the surface homeowners rethink first in a renovation.",
+   [
+    ("Marble and stone backsplashes",
+     "A marble subway tile backsplash adds subtle texture and a timeless look behind the range and along the walls, and stone like Taj Mahal quartzite can carry the veining from the countertop up the wall and across the hood for one continuous look. Natural stone needs sealing suited to kitchen use, and we talk through that care before you choose, so you know what the tile will need after it is installed."),
+    ("Zellige and handmade-look tile",
+     "Handmade-looking ceramics and zellige tile have settled in as a staple in Scottsdale kitchens, prized for the organic variation and warmth they bring. The fresh part is how restrained the applications have become, with straight stacks and clean grids letting the natural variation in the glaze do the work. A half offset is the forgiving default for handmade tile, because it hides small variations in tile length, and we plan the pattern, the waste, and the order before setting anything."),
+    ("Full-height and slab-look backsplashes",
+     "Running the backsplash all the way to the ceiling, or using large format porcelain in 24 by 48 inch formats, gives fewer grout lines and a clean, open look. The layout is planned around the outlets, windows, hood, and cabinet lines, so cuts and grout joints look intentional. A standard field is 18 inches from counter to upper cabinet, and a vertical stack can read taller in a short field, but it needs a dead-level first course or the whole field leans."),
+   ],
+   [
+    ("Does a marble backsplash need sealing?",
+     "Yes, marble in a kitchen needs sealing suited to the stone and to kitchen use, and it needs more care than porcelain. We will talk through what that care looks like for the specific stone you choose."),
+    ("Will zellige tile look uneven?",
+     "Zellige tile is made to vary, in color, thickness, and glaze, and that variation is the point. Set in a straight stack or a running bond, it catches light and gives a custom, lived-in feel, and we plan the layout so the variation reads as warmth, not as a mistake."),
+    ("Should the backsplash run to the ceiling?",
+     "It can, and it often looks best when it does, especially behind the range. Stopping halfway can read unfinished. We will show you how it would look in your kitchen at the estimate."),
+   ],
+   "tile-installation-scottsdale-az.html", "kitchen-tile-backsplash.html"),
+  "services.html",
+  faq_schema([
+    ("Does a marble backsplash need sealing?", "Yes, marble in a kitchen needs sealing suited to the stone and to kitchen use, and it needs more care than porcelain. We will talk through what that care looks like for the specific stone you choose."),
+    ("Will zellige tile look uneven?", "Zellige tile is made to vary, in color, thickness, and glaze, and that variation is the point. Set in a straight stack or a running bond, it catches light and gives a custom, lived-in feel, and we plan the layout so the variation reads as warmth, not as a mistake."),
+    ("Should the backsplash run to the ceiling?", "It can, and it often looks best when it does, especially behind the range. Stopping halfway can read unfinished. We will show you how it would look in your kitchen at the estimate."),
+  ])),
+ "kitchen-backsplash-phoenix-az.html": (
+  "Kitchen Tile Backsplash Installation in Phoenix, AZ | A.S. Remodeling",
+  "Kitchen backsplash installation in Phoenix, AZ: subway, hexagon, and mosaic backsplashes in historic and mid-century kitchens.",
+  service_city_body(
+   "Kitchen Tile Backsplash Installation",
+   "Phoenix",
+   "Phoenix kitchens run from galley kitchens in historic bungalows in Willo and Encanto-Palmcroft to mid-century homes in Ahwatukee and the Biltmore corridor. The backsplash has to work with the cabinets and counters already there, and with the character of the house.",
+   [
+    ("Subway and hexagon in historic kitchens",
+     "Subway tile is the timeless choice in a historic Phoenix kitchen, and it suits the cabinets and counters without fighting them. Backsplash layouts are aligned with countertop edges and cabinet lines so cuts and grout joints look intentional, and the grout lines come out symmetrical instead of looking squeezed in. Hexagon tile gives a structured pattern with the same period feel, and we plan the cuts around outlets, windows, and the range hood before setting anything."),
+    ("Mosaic, glass, and natural stone",
+     "Mosaic, glass, and natural stone tile can add color and texture to a Phoenix kitchen without overwhelming it, coordinated with the room finishes. A colorful tiled backsplash suits a historic Coronado kitchen, and a quiet stone backsplash suits a mid-century home. We help you choose tile that fits the kitchen, then set it with clean edges where tile meets the counter and the cabinets."),
+    ("Backsplashes as part of a tile-led remodel",
+     "A backsplash is often the first tile in a wider kitchen update, and we lead with the tile and work with licensed trades for the rest. Tell us about the kitchen, the counters, and what you want changed, and we will tell you plainly what we do ourselves and what we bring in help for, so the finished kitchen feels like one project, not a set of separate jobs."),
+   ],
+   [
+    ("Can a backsplash match my countertop?",
+     "It should coordinate with the countertop, not match it exactly. Bring a sample of the countertop, or photos of the kitchen, and we will talk through tile colors and patterns that work with it."),
+    ("What grout color works with subway tile?",
+     "It depends on the tile and the look you want. A grout close to the tile color gives a calm, continuous look, and a contrasting grout makes the pattern stand out. We go over that at the estimate."),
+    ("Can you install a backsplash over my old tile?",
+     "It depends on the condition of the existing tile and what is underneath it. Sometimes it works, and sometimes removal is the right call. We check the surface first, then tell you plainly which way makes sense for your kitchen."),
+   ],
+   "tile-installation-phoenix-az.html", "kitchen-tile-backsplash.html"),
+  "services.html",
+  faq_schema([
+    ("Can a backsplash match my countertop?", "It should coordinate with the countertop, not match it exactly. Bring a sample of the countertop, or photos of the kitchen, and we will talk through tile colors and patterns that work with it."),
+    ("What grout color works with subway tile?", "It depends on the tile and the look you want. A grout close to the tile color gives a calm, continuous look, and a contrasting grout makes the pattern stand out. We go over that at the estimate."),
+    ("Can you install a backsplash over my old tile?", "It depends on the condition of the existing tile and what is underneath it. Sometimes it works, and sometimes removal is the right call. We check the surface first, then tell you plainly which way makes sense for your kitchen."),
+  ])),
 }
 
 CSS = """
