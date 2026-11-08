@@ -58,6 +58,9 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .photo-label small{display:block;font-family:system-ui,sans-serif;font-weight:400;font-size:.85rem;color:var(--ink-soft);margin-top:6px}
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .gallery .photo{min-height:220px;margin:0}
+.photo.real{display:block;padding:0;background:#dfe8e4}
+.photo.real img{width:100%;height:100%;min-height:260px;object-fit:cover;display:block}
+.gallery .photo.real img{min-height:220px}
 /* CTA + footer */
 .cta{background:var(--teal);color:#fff;margin-top:56px}
 .cta-inner{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:40px 24px}
