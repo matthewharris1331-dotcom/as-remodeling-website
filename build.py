@@ -104,6 +104,12 @@ def page(slug, title, desc, body, active, extra_schema=None):
 def photo(caption):
     return f'<div class="photo" role="img" aria-label="Photo placeholder"><span class="photo-tile"></span><span class="photo-label">{caption}<small>Replace with an approved finished-job photo before going live.</small></span></div>'
 
+def photo_img(filename, alt):
+    return f'<div class="photo real"><img src="images/{filename}" alt="{alt}" loading="lazy"></div>'
+
+def gallery_img(filename, alt):
+    return f'<div class="photo real"><img src="images/{filename}" alt="{alt}" loading="lazy"></div>'
+
 def service_body(intro, items):
     lis = "".join(f"<li>{i}</li>" for i in items)
     return f"<p class=\"lede\">{intro}</p><h2>What is included</h2><ul class=\"checklist\">{lis}</ul><p>{PITCH}</p>"
@@ -177,7 +183,7 @@ PAGES = {
 <span><strong>Free</strong> estimates</span>
 </div></section>
 <main class="wrap">
-{photo("Hero photo: finished tile work")}
+{photo_img("hero-bathroom.jpg", "Finished bathroom with freestanding tub and glass shower")}
 <h2>We specialize in</h2>
 <div class="cards">
 <div class="card"><h3>Shower Tile</h3><p>Full shower tile from the pan up, waterproofed to spec, finished ready for glass.</p><p><a href="shower-tile-installation.html">Shower tile installation</a></p></div>
@@ -220,28 +226,28 @@ PAGES = {
  "shower-tile-installation.html": (
   "Shower Tile Installation in Phoenix, AZ | A.S. Remodeling",
   "Full shower tile installation in Phoenix, AZ: waterproofing, wall tile, floor tile, niches, and finishes ready for glass.",
-  "<main class=\"wrap page-head\"><h1>Shower Tile Installation in Phoenix, AZ</h1>" + photo("Photo: finished shower tile") + service_body(
+  "<main class=\"wrap page-head\"><h1>Shower Tile Installation in Phoenix, AZ</h1>" + photo_img("shower-black.jpg", "Finished shower with black tile and bench") + service_body(
    "A shower gets used every day, so the tile work has to be right the first time. I handle full shower tile installation from the pan up: waterproofing, wall tile, floor tile, niches, and finishes ready for glass.",
    ["Full shower remodels and retiles", "Walk-in showers, tub surrounds, and shower pans", "Waterproofing done to spec, the part that keeps a shower from leaking into your walls", "Wall and floor tile, niches, benches, and trim", "Glass enclosure ready finishes"]) + "</main>",
   "services.html"),
  "kitchen-tile-backsplash.html": (
   "Kitchen Tile & Backsplash Installation in Phoenix, AZ | A.S. Remodeling",
   "Kitchen backsplash and floor tile in Phoenix, AZ, with tight lines and clean edges matched to your cabinets and counters.",
-  "<main class=\"wrap page-head\"><h1>Kitchen Tile &amp; Backsplash Installation in Phoenix, AZ</h1>" + photo("Photo: finished kitchen backsplash") + service_body(
+  "<main class=\"wrap page-head\"><h1>Kitchen Tile &amp; Backsplash Installation in Phoenix, AZ</h1>" + photo_img("backsplash-herringbone.jpg", "Finished kitchen with herringbone tile backsplash") + service_body(
    "The backsplash is the part of the kitchen everyone looks at. I install backsplash tile with tight lines and clean edges, matched to your cabinets and counters. Kitchen floors too, from a single room to the whole downstairs.",
    ["Kitchen backsplash tile: subway, mosaic, stone, and large format", "Kitchen floor tile", "Clean cuts around outlets, cabinets, and windows", "Grout color matched to the tile", "Caulked edges where the tile meets the counter"]) + "</main>",
   "services.html"),
  "bathroom-tile-remodeling.html": (
   "Bathroom Tile & Remodeling in Phoenix, AZ | A.S. Remodeling",
   "Full bathroom remodels in Phoenix, AZ with tile as the centerpiece: floors, walls, showers, and tub surrounds.",
-  "<main class=\"wrap page-head\"><h1>Bathroom Tile &amp; Remodeling in Phoenix, AZ</h1>" + photo("Photo: finished bathroom tile") + service_body(
+  "<main class=\"wrap page-head\"><h1>Bathroom Tile &amp; Remodeling in Phoenix, AZ</h1>" + photo_img("bathroom-white.jpg", "Finished bathroom with tile floor and walls") + service_body(
    "Full bathroom remodels with tile as the centerpiece. Floors, walls, showers, and tub surrounds, handled start to finish by one craftsman who has done hundreds of bathrooms.",
    ["Full bathroom remodels", "Bathroom floor and wall tile", "Shower and tub surround tile", "Shower pans, niches, benches, and trim", "Old tile removal and surface prep"]) + "</main>",
   "services.html"),
  "tile-flooring.html": (
   "Tile Flooring Installation in Phoenix, AZ | A.S. Remodeling",
   "Tile flooring installation in Phoenix, AZ: ceramic, porcelain, and stone tile floors that sit flat and hold up for decades.",
-  "<main class=\"wrap page-head\"><h1>Tile Flooring Installation in Phoenix, AZ</h1>" + photo("Photo: finished tile floor") + service_body(
+  "<main class=\"wrap page-head\"><h1>Tile Flooring Installation in Phoenix, AZ</h1>" + photo_img("floor-herringbone.jpg", "Finished herringbone tile floor") + service_body(
    "Tile floors that sit flat, look straight, and hold up for decades. I install ceramic, porcelain, and stone tile floors across the Phoenix area, with the subfloor prep that keeps tiles from cracking later.",
    ["Ceramic, porcelain, and stone tile floors", "Kitchens, bathrooms, entryways, and whole-home tile", "Subfloor prep and leveling", "Straight grout lines, sealed where it counts", "Transitions finished clean where tile meets other floors"]) + "</main>",
   "services.html"),
@@ -249,13 +255,27 @@ PAGES = {
   "Project Gallery | Tile Work in Phoenix, AZ | A.S. Remodeling",
   "Finished tile work by A.S. Remodeling in Phoenix, Cave Creek, Anthem, and Scottsdale.",
   "<main class=\"wrap page-head\"><h1>Project Gallery</h1><p class=\"lede\">Photos below are placeholders. Replace each one with an approved finished-job photo before going live.</p>"
-  + '<div class="gallery">' + photo("Photo: bathroom tile") + photo("Photo: shower tile") + photo("Photo: kitchen backsplash") + photo("Photo: tile flooring") + "</div></main>",
+  + '<div class="gallery">'
+  + gallery_img("shower-black.jpg", "Finished shower with black tile and bench")
+  + gallery_img("bathroom-white.jpg", "Finished bathroom with tile floor and walls")
+  + gallery_img("backsplash-herringbone.jpg", "Finished kitchen with herringbone tile backsplash")
+  + gallery_img("floor-herringbone.jpg", "Finished herringbone tile floor")
+  + gallery_img("shower-green.jpg", "Finished shower with green tile")
+  + gallery_img("shower-hexagon.jpg", "Finished shower with hexagon tile and niche")
+  + gallery_img("fireplace-stone.jpg", "Finished stone fireplace surround")
+  + gallery_img("shower-marble.jpg", "Finished marble shower")
+  + gallery_img("shower-blue.jpg", "Finished shower with blue picket tile")
+  + gallery_img("shower-glass.jpg", "Finished glass shower")
+  + gallery_img("kitchen-white.jpg", "Finished white kitchen with tile backsplash")
+  + gallery_img("fireplace-herringbone.jpg", "Finished fireplace with black herringbone tile")
+  + "</div><p>Photos are finished A.S. Remodeling jobs, pulled from the current website. They carry no city label, because the source files do not say which city each job was in.</p></main>",
   "gallery.html"),
  "about.html": (
   "About A.S. Remodeling | Tile Installer in Phoenix, AZ",
   "A.S. Remodeling is a family-owned tile installer serving Phoenix, Cave Creek, Anthem, and Scottsdale, AZ.",
   f"""<main class="wrap page-head"><h1>About A.S. Remodeling</h1><p class="lede">{PITCH}</p>
 <p>A.S. Remodeling LLC is a licensed, bonded and insured AZ tile specialty contractor, {ROC}, serving {AREAS}.</p>
+<p><img src="images/aleks-portrait.jpg" alt="Aleks, A.S. Remodeling" style="width:100%;max-width:520px;border-radius:16px;display:block"></p>
 <p>Copy on this staging page is carried over from the current site and the drafted service pages. Aleks must confirm the history and project claims before this page goes live.</p>
 <ul class="checklist">
 <li>Family-owned, one craftsman on every job</li>
@@ -658,6 +678,9 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .photo-label small{display:block;font-family:system-ui,sans-serif;font-weight:400;font-size:.85rem;color:var(--ink-soft);margin-top:6px}
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .gallery .photo{min-height:220px;margin:0}
+.photo.real{display:block;padding:0;background:#dfe8e4}
+.photo.real img{width:100%;height:100%;min-height:260px;object-fit:cover;display:block}
+.gallery .photo.real img{min-height:220px}
 /* CTA + footer */
 .cta{background:var(--teal);color:#fff;margin-top:56px}
 .cta-inner{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:40px 24px}
@@ -695,6 +718,12 @@ def main():
     # Copy it into dist/ so the header and favicon can use it.
     shutil.copyfile(pathlib.Path(__file__).parent / "as-remodeling-logo.svg", OUT / "as-remodeling-logo.svg")
     shutil.copyfile(pathlib.Path(__file__).parent / "as-remodeling-logo-horizontal.svg", OUT / "as-remodeling-logo-horizontal.svg")
+    # Real job photos pulled from Aleks's live site (see photos-source/).
+    # Only photos he already published there are used, and none is labelled
+    # with a city, because the source files carry no city information.
+    (OUT / "images").mkdir(exist_ok=True)
+    for img in sorted((pathlib.Path(__file__).parent / "images").glob("*.jpg")):
+        shutil.copyfile(img, OUT / "images" / img.name)
     for slug, entry in PAGES.items():
         title, desc, body, active = entry[:4]
         extra = entry[4] if len(entry) > 4 else None
