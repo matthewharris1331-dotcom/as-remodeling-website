@@ -254,7 +254,7 @@ PAGES = {
  "gallery.html": (
   "Project Gallery | Tile Work in Phoenix, AZ | A.S. Remodeling",
   "Finished tile work by A.S. Remodeling in Phoenix, Cave Creek, Anthem, and Scottsdale.",
-  "<main class=\"wrap page-head\"><h1>Project Gallery</h1><p class=\"lede\">Photos below are placeholders. Replace each one with an approved finished-job photo before going live.</p>"
+  "<main class=\"wrap page-head\"><h1>Project Gallery</h1><p class=\"lede\">Finished A.S. Remodeling jobs, pulled from the current website. More photos can be added once Aleks confirms which jobs they show and which city each was in.</p>"
   + '<div class="gallery">'
   + gallery_img("shower-black.jpg", "Finished shower with black tile and bench")
   + gallery_img("bathroom-white.jpg", "Finished bathroom with tile floor and walls")
