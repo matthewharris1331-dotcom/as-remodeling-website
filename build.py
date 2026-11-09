@@ -171,11 +171,94 @@ def service_city_body(service, city, intro, sections, faqs, city_href, service_h
         + '<p>Call <a href="tel:+16028841904">(602) 884-1904</a> to talk through your project and set up a free estimate.</p></main>'
     )
 
+LAYOUT_SECTION = '''<section class="layout" aria-label="It starts with the layout">
+<div class="layout-track"><div class="layout-sticky">
+<h2 style="text-align:center;margin:0 0 4px">It starts with the layout</h2>
+<p class="layout-hint" id="layout-hint">Keep scrolling, the wall stays put.</p>
+<div class="layout-board"><svg id="layout-svg" viewBox="0 0 600 520" role="img" aria-label="A shower wall being marked out: wall outline, level and plumb lines, tile courses, niche, valve, and diagonal check">
+<path class="draw" data-stage="0" pathLength="1" d="M 60 30 H 540 V 470 H 60 Z"/>
+<path class="draw red" data-stage="1" pathLength="1" d="M 60 140 H 540"/>
+<path class="draw red" data-stage="1" pathLength="1" d="M 300 30 V 470"/>
+<text class="note" data-stage="1" x="70" y="128">level first</text>
+<path class="draw" data-stage="2" pathLength="1" d="M 60 200 H 540 M 60 260 H 540 M 60 320 H 540 M 60 380 H 540 M 60 440 H 540"/>
+<path class="draw" data-stage="2" pathLength="1" d="M 180 140 V 200 M 300 200 V 260 M 420 200 V 260 M 180 260 V 320 M 420 260 V 320 M 300 320 V 380 M 180 380 V 440 M 420 380 V 440"/>
+<text class="note" data-stage="2" x="70" y="250">running bond</text>
+<path class="draw" data-stage="3" pathLength="1" d="M 380 180 H 500 V 340 H 380 Z"/>
+<circle class="draw" data-stage="3" pathLength="1" cx="180" cy="300" r="14"/>
+<path class="draw" data-stage="3" pathLength="1" d="M 180 286 V 314 M 166 300 H 194"/>
+<text class="note" data-stage="3" x="385" y="170">niche, 12 by 20</text>
+<path class="draw gold" data-stage="4" pathLength="1" d="M 60 30 L 540 470"/>
+<path class="draw" data-stage="4" pathLength="1" d="M 60 500 H 540 M 60 492 V 508 M 540 492 V 508"/>
+<path class="draw" data-stage="4" pathLength="1" d="M 570 30 V 470 M 562 30 H 578 M 562 470 H 578"/>
+<text class="dim" data-stage="4" x="270" y="518">8 ft 0 in</text>
+<text class="dim" data-stage="4" x="582" y="250" transform="rotate(90 582 250)">5 ft 0 in</text>
+</svg></div>
+<p class="layout-caption" id="layout-caption">The wall, marked out.</p>
+<ul class="layout-dots" id="layout-dots">
+<li><button type="button" data-p="0" aria-label="Stage 1: the wall"></button></li>
+<li><button type="button" data-p="0.2" aria-label="Stage 2: level and plumb"></button></li>
+<li><button type="button" data-p="0.4" aria-label="Stage 3: courses and joints"></button></li>
+<li><button type="button" data-p="0.6" aria-label="Stage 4: niche and valve"></button></li>
+<li><button type="button" data-p="0.8" aria-label="Stage 5: square check"></button></li>
+</ul>
+</div></div>
+</section>
+<script>
+(function(){
+var track=document.querySelector(".layout-track");
+if(!track) return;
+var paths=Array.prototype.slice.call(document.querySelectorAll("#layout-svg .draw"));
+var notes=Array.prototype.slice.call(document.querySelectorAll("#layout-svg .note, #layout-svg .dim"));
+var caption=document.getElementById("layout-caption");
+var hint=document.getElementById("layout-hint");
+var dots=Array.prototype.slice.call(document.querySelectorAll("#layout-dots button"));
+var stages=["The wall, marked out.","Level and plumb, first.","Courses and joints, running bond.","Niche and valve, placed.","Square check, diagonals match."];
+var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function clamp(v){return Math.max(0,Math.min(1,v));}
+function render(p){
+  paths.forEach(function(el){
+    var st=parseFloat(el.getAttribute("data-stage"));
+    var local=clamp((p-st*0.2)/0.2);
+    el.style.strokeDashoffset=(1-local).toFixed(3);
+  });
+  notes.forEach(function(el){
+    var st=parseFloat(el.getAttribute("data-stage"));
+    el.classList.toggle("shown", p>=st*0.2+0.18);
+  });
+  var idx=Math.min(4,Math.floor(p*5));
+  caption.textContent=stages[idx];
+  hint.textContent=p<0.02?"Keep scrolling, the wall stays put.":(p>0.98?"That is the layout, keep scrolling.":"Scrolling draws it, scroll up to undraw.");
+  dots.forEach(function(b,i){b.classList.toggle("on", i===idx);});
+}
+function update(){
+  var r=track.getBoundingClientRect();
+  var vh=window.innerHeight;
+  var total=r.height-vh;
+  var p=total>0?clamp(-r.top/total):1;
+  render(p);
+}
+if(reduced){render(1);return;}
+var ticking=false;
+function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){update();ticking=false;});}}
+window.addEventListener("scroll",onScroll,{passive:true});
+window.addEventListener("resize",onScroll);
+dots.forEach(function(b){
+  b.addEventListener("click",function(){
+    var p=parseFloat(b.getAttribute("data-p"));
+    var r=track.getBoundingClientRect();
+    var top=window.scrollY+r.top+p*(r.height-window.innerHeight);
+    window.scrollTo({top:top,behavior:"smooth"});
+  });
+});
+update();
+})();
+</script>'''
+
 PAGES = {
  "index.html": (
   "Tile Installation & Remodeling | Phoenix, AZ | A.S. Remodeling",
   "High-end tile installation in Phoenix, AZ. Family-owned, one craftsman on every job. Free estimates.",
-  f"""<section class="hero"><div class="wrap hero-inner">
+  f"""<section class="hero"><svg class="hero-grid" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" style="animation-delay:0.00s" d="M 0 0 V 420"/><path pathLength="1" style="animation-delay:0.05s" d="M 100 0 V 420"/><path pathLength="1" style="animation-delay:0.10s" d="M 200 0 V 420"/><path pathLength="1" style="animation-delay:0.15s" d="M 300 0 V 420"/><path pathLength="1" style="animation-delay:0.20s" d="M 400 0 V 420"/><path pathLength="1" style="animation-delay:0.25s" d="M 500 0 V 420"/><path pathLength="1" style="animation-delay:0.30s" d="M 600 0 V 420"/><path pathLength="1" style="animation-delay:0.35s" d="M 700 0 V 420"/><path pathLength="1" style="animation-delay:0.40s" d="M 800 0 V 420"/><path pathLength="1" style="animation-delay:0.45s" d="M 900 0 V 420"/><path pathLength="1" style="animation-delay:0.50s" d="M 1000 0 V 420"/><path pathLength="1" style="animation-delay:0.55s" d="M 1100 0 V 420"/><path pathLength="1" style="animation-delay:0.60s" d="M 1200 0 V 420"/><path pathLength="1" style="animation-delay:0.00s" d="M 0 0 H 1200"/><path pathLength="1" style="animation-delay:0.10s" d="M 0 84 H 1200"/><path pathLength="1" style="animation-delay:0.20s" d="M 0 168 H 1200"/><path pathLength="1" style="animation-delay:0.30s" d="M 0 252 H 1200"/><path pathLength="1" style="animation-delay:0.40s" d="M 0 336 H 1200"/><path pathLength="1" style="animation-delay:0.50s" d="M 0 420 H 1200"/><path class="snap" pathLength="1" d="M 0 168 H 1200"/><path class="snap" pathLength="1" d="M 600 0 V 420"/></svg><div class="wrap hero-inner">
 <p class="eyebrow">Phoenix, Cave Creek, Anthem, and Scottsdale</p>
 <h1>High-End Tile Installation in Phoenix, AZ</h1>
 <p class="hero-pitch">{PITCH}</p>
@@ -190,6 +273,8 @@ PAGES = {
 </div></section>
 <main class="wrap">
 {photo_img("hero-bathroom.jpg", "Finished bathroom with freestanding tub and glass shower")}
+
+{LAYOUT_SECTION}
 <h2>We specialize in</h2>
 <div class="cards">
 <div class="card"><h3>Shower Tile</h3><p>Full shower tile from the pan up, waterproofed to spec, finished ready for glass.</p><p><a href="shower-tile-installation.html">Shower tile installation</a></p></div>
@@ -649,7 +734,29 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .call{margin-left:auto;background:var(--terra);color:#fff;padding:10px 16px;border-radius:999px;text-decoration:none;font-weight:700;white-space:nowrap;box-shadow:0 2px 10px rgba(180,85,45,.3)}
 .call:hover{background:var(--terra-dark)}
 /* hero */
-.hero{background:var(--teal);color:#fff;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:56px 56px}
+.hero{background:var(--teal);color:#fff;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-grid path{stroke:rgba(255,255,255,.08);stroke-width:1;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:drawline 1.4s ease-out forwards}
+.hero-grid path.snap{stroke:rgba(201,168,106,.55);stroke-width:1.5;animation-delay:1.2s}
+@keyframes drawline{to{stroke-dashoffset:0}}
+.hero-inner{position:relative;z-index:1}
+/* It starts with the layout: scroll-pinned drawing */
+.layout-track{position:relative;height:320vh}
+.layout-sticky{position:-webkit-sticky;position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;background:var(--paper);padding:72px 0 24px}
+.layout-board{width:100%;max-width:560px;margin:0 auto}
+.layout-board svg{width:100%;height:auto;max-height:58vh;max-height:58svh;display:block}
+.layout-board .draw{fill:none;stroke:#22302e;stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.layout-board .red{stroke:#b4552d}
+.layout-board .gold{stroke:#c9a86a}
+.layout-board .note{font-family:Georgia,serif;font-style:italic;font-size:15px;fill:#4a5a57;opacity:0;transition:opacity .3s}
+.layout-board .dim{font-family:system-ui,sans-serif;font-size:13px;fill:#4a5a57;opacity:0;transition:opacity .3s}
+.layout-board .shown{opacity:1}
+.layout-hint{text-align:center;color:var(--ink-soft);font-size:.95rem;margin:0 0 10px}
+.layout-caption{text-align:center;font-family:Georgia,serif;font-size:1.15rem;margin:14px 0 8px;min-height:1.6em}
+.layout-dots{display:flex;gap:8px;justify-content:center;padding:0;margin:0;list-style:none}
+.layout-dots button{width:12px;height:12px;border-radius:50%;border:1px solid var(--teal);background:transparent;cursor:pointer;padding:0}
+.layout-dots button.on{background:var(--teal)}
+@media (prefers-reduced-motion: reduce){.hero-grid path{animation:none;stroke-dashoffset:0}.layout-track{height:auto}.layout-sticky{position:static;height:auto}.layout-board .draw{stroke-dashoffset:0}.layout-board .note,.layout-board .dim{opacity:1}}
 .hero-inner{padding:64px 24px 58px}
 .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:700;color:var(--gold);margin:0 0 12px}
 .hero h1{color:#fff;margin:0 0 14px;max-width:16ch}
