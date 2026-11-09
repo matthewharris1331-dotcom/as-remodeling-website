@@ -206,6 +206,9 @@ LAYOUT_SECTION = '''<section class="layout" aria-label="It starts with the layou
 </section>
 <script>
 (function(){
+var header=document.querySelector("header");
+function setHeaderH(){if(header){document.documentElement.style.setProperty("--header-h",header.offsetHeight+"px");}}
+setHeaderH();
 var track=document.querySelector(".layout-track");
 if(!track) return;
 var paths=Array.prototype.slice.call(document.querySelectorAll("#layout-svg .draw"));
@@ -242,7 +245,7 @@ if(reduced){render(1);return;}
 var ticking=false;
 function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){update();ticking=false;});}}
 window.addEventListener("scroll",onScroll,{passive:true});
-window.addEventListener("resize",onScroll);
+window.addEventListener("resize",function(){setHeaderH();onScroll();});
 dots.forEach(function(b){
   b.addEventListener("click",function(){
     var p=parseFloat(b.getAttribute("data-p"));
@@ -743,7 +746,7 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .hero-inner{position:relative;z-index:1}
 /* It starts with the layout: scroll-pinned drawing */
 .layout-track{position:relative;height:320vh}
-.layout-sticky{position:-webkit-sticky;position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:flex-start;background:var(--paper);padding:64px 0 12px}
+.layout-sticky{position:-webkit-sticky;position:sticky;top:var(--header-h,0px);height:calc(100vh - var(--header-h,0px));height:calc(100svh - var(--header-h,0px));display:flex;flex-direction:column;justify-content:flex-start;background:var(--paper);padding:12px 0 12px}
 .layout-board{width:100%;max-width:560px;margin:0 auto}
 .layout-board svg{width:100%;height:auto;max-height:62vh;max-height:62svh;display:block}
 .layout-board .draw{fill:none;stroke:#22302e;stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
@@ -757,6 +760,7 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .layout-dots{display:flex;gap:8px;justify-content:center;padding:0;margin:0;list-style:none}
 .layout-dots button{width:12px;height:12px;border-radius:50%;border:1px solid var(--teal);background:transparent;cursor:pointer;padding:0}
 .layout-dots button.on{background:var(--teal)}
+@media (max-width:640px){.layout-sticky h2{font-size:1.35rem}.layout-hint{font-size:.85rem}.layout-board svg{max-height:42svh;max-height:42svh}.layout-caption{font-size:1rem}}
 @media (prefers-reduced-motion: reduce){.hero-grid path{animation:none;stroke-dashoffset:0}.layout-track{height:auto}.layout-sticky{position:static;height:auto}.layout-board .draw{stroke-dashoffset:0}.layout-board .note,.layout-board .dim{opacity:1}}
 .hero-inner{padding:64px 24px 58px}
 .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:700;color:var(--gold);margin:0 0 12px}
