@@ -188,6 +188,7 @@ LAYOUT_SECTION = '''<section class="layout" aria-label="It starts with the layou
 <path class="draw" data-stage="3" pathLength="1" d="M 180 286 V 314 M 166 300 H 194"/>
 <text class="note" data-stage="3" x="385" y="170">niche, 12 by 20</text>
 <path class="draw gold" data-stage="4" pathLength="1" d="M 60 30 L 540 470"/>
+<path class="draw gold" data-stage="4" pathLength="1" d="M 540 30 L 60 470"/>
 <path class="draw" data-stage="4" pathLength="1" d="M 60 500 H 540 M 60 492 V 508 M 540 492 V 508"/>
 <path class="draw" data-stage="4" pathLength="1" d="M 570 30 V 470 M 562 30 H 578 M 562 470 H 578"/>
 <text class="dim" data-stage="4" x="270" y="518">8 ft 0 in</text>
@@ -742,9 +743,9 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .hero-inner{position:relative;z-index:1}
 /* It starts with the layout: scroll-pinned drawing */
 .layout-track{position:relative;height:320vh}
-.layout-sticky{position:-webkit-sticky;position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;background:var(--paper);padding:72px 0 24px}
+.layout-sticky{position:-webkit-sticky;position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:flex-start;background:var(--paper);padding:64px 0 12px}
 .layout-board{width:100%;max-width:560px;margin:0 auto}
-.layout-board svg{width:100%;height:auto;max-height:58vh;max-height:58svh;display:block}
+.layout-board svg{width:100%;height:auto;max-height:62vh;max-height:62svh;display:block}
 .layout-board .draw{fill:none;stroke:#22302e;stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
 .layout-board .red{stroke:#b4552d}
 .layout-board .gold{stroke:#c9a86a}
