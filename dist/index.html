@@ -81,6 +81,9 @@
 </section>
 <script>
 (function(){
+var header=document.querySelector("header");
+function setHeaderH(){if(header){document.documentElement.style.setProperty("--header-h",header.offsetHeight+"px");}}
+setHeaderH();
 var track=document.querySelector(".layout-track");
 if(!track) return;
 var paths=Array.prototype.slice.call(document.querySelectorAll("#layout-svg .draw"));
@@ -117,7 +120,7 @@ if(reduced){render(1);return;}
 var ticking=false;
 function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){update();ticking=false;});}}
 window.addEventListener("scroll",onScroll,{passive:true});
-window.addEventListener("resize",onScroll);
+window.addEventListener("resize",function(){setHeaderH();onScroll();});
 dots.forEach(function(b){
   b.addEventListener("click",function(){
     var p=parseFloat(b.getAttribute("data-p"));
