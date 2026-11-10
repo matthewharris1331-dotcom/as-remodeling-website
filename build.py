@@ -256,6 +256,65 @@ dots.forEach(function(b){
 });
 update();
 })();
+
+/* Continuous pencil line: picks up under "We specialize in" and traces each
+   card's rounded outline in turn, driven by scroll (undraws on scroll up). */
+(function(){
+function initTrace(){
+  var svg=document.getElementById("trace-svg");
+  var path=document.getElementById("trace-path");
+  var main=document.querySelector("main");
+  var cards=Array.prototype.slice.call(document.querySelectorAll(".cards .card"));
+  var heading=null;
+  Array.prototype.slice.call(document.querySelectorAll("main h2")).forEach(function(h){
+    if(h.textContent.indexOf("We specialize in")===0) heading=h;
+  });
+  if(!svg||!path||!main||!cards.length||!heading) return;
+  var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var OUT=8, R=24, total=0, s0=0, s1=1;
+  function rr(x,y,w,h,r){
+    return "L "+(x+r)+" "+y+" H "+(x+w-r)+" A "+r+" "+r+" 0 0 1 "+(x+w)+" "+(y+r)
+      +" V "+(y+h-r)+" A "+r+" "+r+" 0 0 1 "+(x+w-r)+" "+(y+h)
+      +" H "+(x+r)+" A "+r+" "+r+" 0 0 1 "+x+" "+(y+h-r)
+      +" V "+(y+r)+" A "+r+" "+r+" 0 0 1 "+(x+r)+" "+y;
+  }
+  function build(){
+    var mr=main.getBoundingClientRect();
+    svg.setAttribute("viewBox","0 0 "+main.offsetWidth+" "+main.offsetHeight);
+    var fr=cards[0].getBoundingClientRect();
+    var startX=fr.left-mr.left-OUT+R;
+    var startY=heading.getBoundingClientRect().bottom-mr.top+6;
+    var d="M "+startX+" "+startY;
+    cards.forEach(function(c){
+      var r=c.getBoundingClientRect();
+      d+=rr(r.left-mr.left-OUT, r.top-mr.top-OUT, r.width+OUT*2, r.height+OUT*2, R);
+    });
+    path.setAttribute("d",d);
+    total=path.getTotalLength();
+    var vh=window.innerHeight, sy=window.scrollY;
+    var headBottom=heading.getBoundingClientRect().bottom+sy;
+    var lastBottom=cards[cards.length-1].getBoundingClientRect().bottom+sy;
+    s0=headBottom-vh*0.8;
+    s1=lastBottom-vh*0.65;
+  }
+  function clamp(v){return Math.max(0,Math.min(1,v));}
+  function update(){
+    var range=s1-s0;
+    var p=range<40 ? (window.scrollY>=s0?1:0) : clamp((window.scrollY-s0)/range);
+    path.style.strokeDasharray=total;
+    path.style.strokeDashoffset=(total*(1-p)).toFixed(1);
+  }
+  if(reduced){build();path.style.strokeDasharray="none";path.style.strokeDashoffset="0";return;}
+  build(); update();
+  var ticking=false;
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(function(){update();ticking=false;});}}
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",function(){build();onScroll();});
+  window.addEventListener("load",function(){build();onScroll();});
+}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initTrace);}
+else{initTrace();}
+})();
 </script>'''
 
 PAGES = {
@@ -276,6 +335,7 @@ PAGES = {
 <span><strong>Free</strong> estimates</span>
 </div></section>
 <main class="wrap">
+<svg id="trace-svg" aria-hidden="true"><path id="trace-path" d=""/></svg>
 {photo_img("hero-bathroom.jpg", "Finished bathroom with freestanding tub and glass shower")}
 
 {LAYOUT_SECTION}
@@ -761,7 +821,10 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .layout-dots button{width:12px;height:12px;border-radius:50%;border:1px solid var(--teal);background:transparent;cursor:pointer;padding:0}
 .layout-dots button.on{background:var(--teal)}
 @media (max-width:640px){.layout-sticky h2{font-size:1.35rem}.layout-hint{font-size:.85rem}.layout-board svg{max-height:42svh;max-height:42svh}.layout-caption{font-size:1rem}}
-@media (prefers-reduced-motion: reduce){.hero-grid path{animation:none;stroke-dashoffset:0}.layout-track{height:auto}.layout-sticky{position:static;height:auto}.layout-board .draw{stroke-dashoffset:0}.layout-board .note,.layout-board .dim{opacity:1}}
+main{position:relative}
+#trace-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;overflow:visible}
+#trace-path{fill:none;stroke:#22302e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media (prefers-reduced-motion: reduce){.hero-grid path{animation:none;stroke-dashoffset:0}.layout-track{height:auto}.layout-sticky{position:static;height:auto}.layout-board .draw{stroke-dashoffset:0}.layout-board .note,.layout-board .dim{opacity:1}#trace-path{stroke-dashoffset:0}}
 .hero-inner{padding:64px 24px 58px}
 .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:700;color:var(--gold);margin:0 0 12px}
 .hero h1{color:#fff;margin:0 0 14px;max-width:16ch}
