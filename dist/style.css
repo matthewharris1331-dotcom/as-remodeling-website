@@ -46,10 +46,7 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .layout-dots button{width:12px;height:12px;border-radius:50%;border:1px solid var(--teal);background:transparent;cursor:pointer;padding:0}
 .layout-dots button.on{background:var(--teal)}
 @media (max-width:640px){.layout-sticky h2{font-size:1.35rem}.layout-hint{font-size:.85rem}.layout-board svg{max-height:42svh;max-height:42svh}.layout-caption{font-size:1rem}}
-main{position:relative}
-#trace-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;overflow:visible}
-#trace-path{fill:none;stroke:#22302e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-@media (prefers-reduced-motion: reduce){.hero-grid path{animation:none;stroke-dashoffset:0}.layout-track{height:auto}.layout-sticky{position:static;height:auto}.layout-board .draw{stroke-dashoffset:0}.layout-board .note,.layout-board .dim{opacity:1}#trace-path{stroke-dashoffset:0}}
+@media (prefers-reduced-motion: reduce){.hero-grid path{animation:none;stroke-dashoffset:0}.layout-track{height:auto}.layout-sticky{position:static;height:auto}.layout-board .draw{stroke-dashoffset:0}.layout-board .note,.layout-board .dim{opacity:1}}
 .hero-inner{padding:64px 24px 58px}
 .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:700;color:var(--gold);margin:0 0 12px}
 .hero h1{color:#fff;margin:0 0 14px;max-width:16ch}
