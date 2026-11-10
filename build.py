@@ -285,9 +285,17 @@ function initTrace(){
     var startX=fr.left-mr.left-OUT+R;
     var startY=heading.getBoundingClientRect().bottom-mr.top+6;
     var d="M "+startX+" "+startY;
-    cards.forEach(function(c){
+    var prevX=0, prevY=0;
+    cards.forEach(function(c,i){
       var r=c.getBoundingClientRect();
-      d+=rr(r.left-mr.left-OUT, r.top-mr.top-OUT, r.width+OUT*2, r.height+OUT*2, R);
+      var x=r.left-mr.left-OUT, y=r.top-mr.top-OUT, w=r.width+OUT*2, h=r.height+OUT*2;
+      if(i>0){
+        /* travel through the gaps, never across a card: back to the previous
+           outline's top-left corner, down the gap, then along the next row gap */
+        d+="L "+prevX+" "+prevY+" L "+prevX+" "+y+" L "+x+" "+y;
+      }
+      d+=rr(x,y,w,h,R);
+      prevX=x; prevY=y;
     });
     path.setAttribute("d",d);
     total=path.getTotalLength();
@@ -311,6 +319,7 @@ function initTrace(){
   window.addEventListener("scroll",onScroll,{passive:true});
   window.addEventListener("resize",function(){build();onScroll();});
   window.addEventListener("load",function(){build();onScroll();});
+  setTimeout(function(){build();onScroll();},800);
 }
 if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initTrace);}
 else{initTrace();}
