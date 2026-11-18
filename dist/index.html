@@ -7,6 +7,7 @@
 <meta name="description" content="High-end tile installation in Phoenix, AZ. Family-owned, one craftsman on every job. Free estimates.">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/svg+xml" href="as-remodeling-logo.svg">
+<script>var asrTheme=null;try{asrTheme=localStorage.getItem("asr-theme")}catch(e){}if(asrTheme&&asrTheme!=="current")document.documentElement.setAttribute("data-theme",asrTheme);</script>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "HomeAndGardenBusiness",
@@ -70,6 +71,48 @@
 <h2>Tile installation across the Valley</h2>
 <p>We serve homeowners in <a href="tile-installation-phoenix-az.html">Phoenix</a>, <a href="tile-installation-scottsdale-az.html">Scottsdale</a>, <a href="tile-installation-cave-creek-az.html">Cave Creek</a>, and <a href="tile-installation-anthem-az.html">Anthem</a>. See all <a href="service-areas.html">service areas</a>.</p>
 </main>
+
+<button type="button" class="color-btn" id="color-btn" aria-haspopup="dialog"><span class="dots" aria-hidden="true"><i style="background:#1e4a48"></i><i style="background:#b4552d"></i><i style="background:#c9a86a"></i></span>Colors</button>
+<div class="color-lightbox" id="color-lightbox">
+<div class="color-panel" role="dialog" aria-modal="true" aria-labelledby="color-title">
+<button type="button" class="color-close" id="color-close" aria-label="Close">×</button>
+<h2 id="color-title">Choose a color scheme</h2>
+<p class="sub">Pick one, then save. The whole site updates to it.</p>
+<button type="button" class="color-option" data-theme="current" aria-pressed="true"><span class="check" aria-hidden="true">✓</span><span class="swatches" aria-hidden="true"><i style="background:#1e4a48"></i><i style="background:#f7f2e9"></i><i style="background:#b4552d"></i><i style="background:#c9a86a"></i></span><strong>Current: deep teal and terracotta</strong><p>The palette already on the site. Teal reads calm and trustworthy, terracotta is fired clay, the material of tile, and it stands out from blue-and-gray competitors.</p></button>
+<button type="button" class="color-option" data-theme="stone" aria-pressed="false"><span class="check" aria-hidden="true">✓</span><span class="swatches" aria-hidden="true"><i style="background:#1a1a1a"></i><i style="background:#ffffff"></i><i style="background:#d8d2c6"></i><i style="background:#b08d57"></i></span><strong>Black, white, and warm stone</strong><p>Closest to Aleks's current black-and-white site and his black logo. Timeless, and it lets the tile photos carry the color.</p></button>
+<button type="button" class="color-option" data-theme="desert" aria-pressed="false"><span class="check" aria-hidden="true">✓</span><span class="swatches" aria-hidden="true"><i style="background:#2b2b28"></i><i style="background:#faf6ef"></i><i style="background:#a8623c"></i><i style="background:#e8ddc9"></i></span><strong>Desert neutrals</strong><p>A Sonoran palette of travertine, sand, and clay. Warm and local to Phoenix and Scottsdale, not generic.</p></button>
+<button type="button" class="color-option" data-theme="forest" aria-pressed="false"><span class="check" aria-hidden="true">✓</span><span class="swatches" aria-hidden="true"><i style="background:#1f3d33"></i><i style="background:#f5f1e8"></i><i style="background:#c9a86a"></i><i style="background:#222222"></i></span><strong>Deep green and brass</strong><p>The luxury bathroom direction for 2026. Green signals safety and stability, and dark plus brass reads like a high-end showroom, pairing well with marble.</p></button>
+<button type="button" class="color-save" id="color-save">Save color scheme</button>
+<button type="button" class="color-cancel" id="color-cancel">Cancel</button>
+<p class="color-note">Your choice is saved on this device, and it applies to every page.</p>
+</div>
+</div>
+<script>
+(function(){
+var btn=document.getElementById("color-btn");
+var box=document.getElementById("color-lightbox");
+var saveBtn=document.getElementById("color-save");
+var closeBtn=document.getElementById("color-close");
+var cancelBtn=document.getElementById("color-cancel");
+var options=Array.prototype.slice.call(document.querySelectorAll(".color-option"));
+var current="current";
+try{current=localStorage.getItem("asr-theme")||"current";}catch(e){}
+var picked=current;
+function mark(){options.forEach(function(o){o.setAttribute("aria-pressed",o.getAttribute("data-theme")===picked?"true":"false");});}
+function open(){mark();box.classList.add("open");closeBtn.focus();}
+function close(){box.classList.remove("open");btn.focus();}
+function apply(theme){if(theme==="current"){document.documentElement.removeAttribute("data-theme");}else{document.documentElement.setAttribute("data-theme",theme);}try{localStorage.setItem("asr-theme",theme);}catch(e){}}
+btn.addEventListener("click",open);
+closeBtn.addEventListener("click",close);
+cancelBtn.addEventListener("click",close);
+box.addEventListener("click",function(e){if(e.target===box)close();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&box.classList.contains("open"))close();});
+options.forEach(function(o){o.addEventListener("click",function(){picked=o.getAttribute("data-theme");mark();});});
+saveBtn.addEventListener("click",function(){apply(picked);close();});
+mark();
+})();
+</script>
+
 <section class="cta"><div class="wrap cta-inner">
 <div>
 <h2>Get a Free Estimate</h2>
