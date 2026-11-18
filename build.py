@@ -219,7 +219,7 @@ PAGES = {
  "index.html": (
   "Tile Installation & Remodeling | Phoenix, AZ | A.S. Remodeling",
   "High-end tile installation in Phoenix, AZ. Family-owned, one craftsman on every job. Free estimates.",
-  f"""<section class="hero"><svg class="hero-grid" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" style="animation-delay:0.00s" d="M 0 0 V 420"/><path pathLength="1" style="animation-delay:0.05s" d="M 100 0 V 420"/><path pathLength="1" style="animation-delay:0.10s" d="M 200 0 V 420"/><path pathLength="1" style="animation-delay:0.15s" d="M 300 0 V 420"/><path pathLength="1" style="animation-delay:0.20s" d="M 400 0 V 420"/><path pathLength="1" style="animation-delay:0.25s" d="M 500 0 V 420"/><path pathLength="1" style="animation-delay:0.30s" d="M 600 0 V 420"/><path pathLength="1" style="animation-delay:0.35s" d="M 700 0 V 420"/><path pathLength="1" style="animation-delay:0.40s" d="M 800 0 V 420"/><path pathLength="1" style="animation-delay:0.45s" d="M 900 0 V 420"/><path pathLength="1" style="animation-delay:0.50s" d="M 1000 0 V 420"/><path pathLength="1" style="animation-delay:0.55s" d="M 1100 0 V 420"/><path pathLength="1" style="animation-delay:0.60s" d="M 1200 0 V 420"/><path pathLength="1" style="animation-delay:0.00s" d="M 0 0 H 1200"/><path pathLength="1" style="animation-delay:0.10s" d="M 0 84 H 1200"/><path pathLength="1" style="animation-delay:0.20s" d="M 0 168 H 1200"/><path pathLength="1" style="animation-delay:0.30s" d="M 0 252 H 1200"/><path pathLength="1" style="animation-delay:0.40s" d="M 0 336 H 1200"/><path pathLength="1" style="animation-delay:0.50s" d="M 0 420 H 1200"/><path class="snap" pathLength="1" d="M 0 168 H 1200"/><path class="snap" pathLength="1" d="M 600 0 V 420"/></svg><div class="wrap hero-inner">
+  f"""<section class="hero"><div class="hero-photo" aria-hidden="true"></div><div class="wrap hero-inner">
 <p class="eyebrow">Phoenix, Cave Creek, Anthem, and Scottsdale</p>
 <h1>High-End Tile Installation in Phoenix, AZ</h1>
 <p class="hero-pitch">{PITCH}</p>
@@ -700,12 +700,11 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .call:hover{background:var(--terra-dark)}
 /* hero */
 .hero{background:var(--teal);color:#fff;position:relative;overflow:hidden}
-.hero-grid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hero-grid path{stroke:rgba(255,255,255,.08);stroke-width:1;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:drawline 1.4s ease-out forwards}
-.hero-grid path.snap{stroke:rgba(201,168,106,.55);stroke-width:1.5;animation-delay:1.2s}
-@keyframes drawline{to{stroke-dashoffset:0}}
+.hero-photo{position:absolute;inset:0;background:url(images/hero-blue-picket.jpg) center 32%/cover no-repeat;animation:heropush 30s ease-out forwards;pointer-events:none}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 88%,transparent),color-mix(in srgb,var(--teal) 68%,transparent) 55%,color-mix(in srgb,var(--teal) 58%,transparent))}
+@keyframes heropush{from{transform:scale(1)}to{transform:scale(1.08)}}
 .hero-inner{position:relative;z-index:1}
-@media (prefers-reduced-motion: reduce){.hero-grid path{animation:none;stroke-dashoffset:0}}
+@media (prefers-reduced-motion: reduce){.hero-photo{animation:none}}
 .hero-inner{padding:64px 24px 58px}
 .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:700;color:var(--gold);margin:0 0 12px}
 .hero h1{color:#fff;margin:0 0 14px;max-width:16ch}
