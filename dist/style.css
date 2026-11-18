@@ -28,7 +28,7 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .call:hover{background:var(--terra-dark)}
 /* hero */
 .hero{background:var(--teal);color:#fff;position:relative;overflow:hidden}
-.hero-photo{position:absolute;inset:0;background:url(images/hero-blue-picket.jpg) center 32%/cover no-repeat;animation:heropush 30s ease-out forwards;pointer-events:none}
+.hero-photo{position:absolute;inset:0;background:url(images/hero-blue-picket.jpg) center 45%/cover no-repeat;animation:heropush 30s ease-out forwards;pointer-events:none}
 .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 88%,transparent),color-mix(in srgb,var(--teal) 68%,transparent) 55%,color-mix(in srgb,var(--teal) 58%,transparent))}
 @keyframes heropush{from{transform:scale(1)}to{transform:scale(1.08)}}
 .hero-inner{position:relative;z-index:1}
