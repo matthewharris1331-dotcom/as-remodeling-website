@@ -80,7 +80,7 @@ def page(slug, title, desc, body, active, extra_schema=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style-v4.css">
 <link rel="icon" type="image/svg+xml" href="as-remodeling-logo.svg">
 <script>var asrTheme=null;try{{asrTheme=localStorage.getItem("asr-theme")}}catch(e){{}}if(asrTheme&&asrTheme!=="current")document.documentElement.setAttribute("data-theme",asrTheme);</script>
 <script type="application/ld+json">{SCHEMA}</script>
@@ -818,6 +818,7 @@ def main():
         title, desc, body, active = entry[:4]
         extra = entry[4] if len(entry) > 4 else None
         (OUT / slug).write_text(page(slug, title, desc, body, active, extra), encoding="utf-8")
+    (OUT / "style-v4.css").write_text(CSS, encoding="utf-8")
     (OUT / "style.css").write_text(CSS, encoding="utf-8")
     urls = "".join(f"<url><loc>https://www.asremodelingllc.com/{s if s != 'index.html' else ''}</loc></url>\n" for s in PAGES)
     (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
