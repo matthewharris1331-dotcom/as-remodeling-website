@@ -700,9 +700,9 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .call:hover{background:var(--terra-dark)}
 /* hero */
 .hero{background:var(--teal);color:#fff;position:relative;overflow:hidden}
-.hero-photo{position:absolute;inset:0;background:url(images/hero-blue-picket.jpg) center 45%/cover no-repeat;animation:heropush 30s ease-out forwards;pointer-events:none}
-.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 88%,transparent),color-mix(in srgb,var(--teal) 68%,transparent) 55%,color-mix(in srgb,var(--teal) 58%,transparent))}
-@keyframes heropush{from{transform:scale(1)}to{transform:scale(1.08)}}
+.hero-photo{position:absolute;inset:0;background:url(images/hero-final-bathroom.jpg) center 45%/cover no-repeat;animation:heropush 22s ease-out forwards;transform-origin:50% 42%;pointer-events:none}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 86%,transparent),color-mix(in srgb,var(--teal) 55%,transparent) 50%,color-mix(in srgb,var(--teal) 42%,transparent))}
+@keyframes heropush{from{transform:scale(1)}to{transform:scale(1.18)}}
 .hero-inner{position:relative;z-index:1}
 @media (prefers-reduced-motion: reduce){.hero-photo{animation:none}}
 .hero-inner{padding:64px 24px 58px}
