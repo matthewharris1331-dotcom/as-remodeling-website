@@ -80,7 +80,7 @@ def page(slug, title, desc, body, active, extra_schema=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 <link rel="icon" type="image/svg+xml" href="as-remodeling-logo.svg">
 <script>var asrTheme=null;try{{asrTheme=localStorage.getItem("asr-theme")}}catch(e){{}}if(asrTheme&&asrTheme!=="current")document.documentElement.setAttribute("data-theme",asrTheme);</script>
 <script type="application/ld+json">{SCHEMA}</script>
