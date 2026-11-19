@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shower Tile Installation in Phoenix, AZ | A.S. Remodeling</title>
 <meta name="description" content="Full shower tile installation in Phoenix, AZ: waterproofing, wall tile, floor tile, niches, and finishes ready for glass.">
-<link rel="stylesheet" href="style-v5.css">
+<link rel="stylesheet" href="style-v6.css">
 <link rel="icon" type="image/svg+xml" href="as-remodeling-logo.svg">
 <script>var asrTheme=null;try{asrTheme=localStorage.getItem("asr-theme")}catch(e){}if(asrTheme&&asrTheme!=="current")document.documentElement.setAttribute("data-theme",asrTheme);</script>
 <script type="application/ld+json">{
@@ -55,5 +55,93 @@
 <p>Phone: <a href="tel:+16028841904">(602) 884-1904</a><br>Email: <a href="mailto:Ascremodel@gmail.com">Ascremodel@gmail.com</a><br><a href="contact.html">Get a Free Estimate</a></p>
 </div>
 </div></footer>
+
+<button type="button" class="feedback-btn" id="feedback-btn" aria-haspopup="dialog">Feedback</button>
+<div class="feedback-lightbox" id="feedback-lightbox">
+<div class="feedback-panel" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+<button type="button" class="feedback-close" id="feedback-close" aria-label="Close">×</button>
+<h2 id="feedback-title">Share feedback on this page</h2>
+<p class="sub">Tell us what you think of this page. Your name, the page, your screen size, and the color scheme are saved with your comment.</p>
+<label class="feedback-field">Your name<input type="text" id="feedback-name" autocomplete="name"></label>
+<label class="feedback-field">Your comments<textarea id="feedback-comment" rows="4"></textarea></label>
+<p class="feedback-auto" id="feedback-auto"></p>
+<button type="button" class="feedback-submit" id="feedback-submit">Send feedback</button>
+<p class="feedback-status" id="feedback-status" role="status"></p>
+<h3>Feedback on this page</h3>
+<div class="feedback-list" id="feedback-list"><p class="feedback-empty">No feedback on this page yet.</p></div>
+</div>
+</div>
+<script>
+(function(){
+var ENDPOINT="";
+var btn=document.getElementById("feedback-btn");
+var box=document.getElementById("feedback-lightbox");
+var closeBtn=document.getElementById("feedback-close");
+var nameInput=document.getElementById("feedback-name");
+var commentInput=document.getElementById("feedback-comment");
+var autoLine=document.getElementById("feedback-auto");
+var submitBtn=document.getElementById("feedback-submit");
+var statusEl=document.getElementById("feedback-status");
+var listEl=document.getElementById("feedback-list");
+var p=location.pathname.substring(1);
+if(!p)p="index.html";
+var page=p;
+var PALETTES={current:"Current: deep teal and terracotta",stone:"Black, white, and warm stone",desert:"Desert neutrals",forest:"Deep green and brass"};
+function pageLabel(){if(page==="index.html")return "Home";var s=page.split(".html").join("").split("-").join(" ");return s.split(" ").map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(" ");}
+function paletteName(){var t="current";try{t=document.documentElement.getAttribute("data-theme")||"current";}catch(e){}return PALETTES[t]||t;}
+function viewport(){return window.innerWidth+"x"+window.innerHeight;}
+function localKey(){return "asr-feedback:"+page;}
+function loadLocal(){try{return JSON.parse(localStorage.getItem(localKey())||"[]");}catch(e){return [];}}
+function saveLocal(records){try{localStorage.setItem(localKey(),JSON.stringify(records));}catch(e){}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function render(records){
+if(!records.length){listEl.innerHTML='<p class="feedback-empty">No feedback on this page yet.</p>';return;}
+var html="";
+records.forEach(function(r){html+='<div class="feedback-item"><strong>'+esc(r.name)+'</strong> <span class="meta">'+esc(r.viewport||"")+' · '+esc(r.palette||"")+' · '+esc(r.when||"")+'</span><p>'+esc(r.comment)+'</p></div>';});
+listEl.innerHTML=html;
+}
+function renderAll(serverRecords){
+var local=loadLocal();
+var seen={};
+var merged=[];
+(serverRecords||[]).concat(local).forEach(function(r){var k=r.name+"|"+r.comment;if(!seen[k]){seen[k]=1;merged.push(r);}});
+merged.sort(function(a,b){return (b.ts||"").localeCompare(a.ts||"");});
+render(merged);
+}
+function loadServer(){
+if(!ENDPOINT){renderAll([]);return;}
+fetch(ENDPOINT+"?page="+encodeURIComponent("/"+page)).then(function(res){return res.json();}).then(function(data){renderAll(data.feedback||[]);}).catch(function(){renderAll([]);});
+}
+function open(){
+var savedName="";try{savedName=localStorage.getItem("asr-feedback-name")||"";}catch(e){}
+nameInput.value=savedName;
+autoLine.textContent="Saved with this feedback: "+pageLabel()+" page · "+viewport()+" screen · "+paletteName()+" palette.";
+statusEl.textContent="";
+loadServer();
+box.classList.add("open");
+nameInput.focus();
+}
+function close(){box.classList.remove("open");btn.focus();}
+btn.addEventListener("click",open);
+closeBtn.addEventListener("click",close);
+box.addEventListener("click",function(e){if(e.target===box)close();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&box.classList.contains("open"))close();});
+submitBtn.addEventListener("click",function(){
+var name=nameInput.value.trim();
+var comment=commentInput.value.trim();
+if(!name){statusEl.textContent="Please add your name.";nameInput.focus();return;}
+if(!comment){statusEl.textContent="Please write a comment.";commentInput.focus();return;}
+var rec={page:"/"+page,name:name,comment:comment,viewport:viewport(),palette:paletteName(),when:new Date().toLocaleDateString(),ts:new Date().toISOString()};
+var local=loadLocal();local.unshift(rec);saveLocal(local);
+try{localStorage.setItem("asr-feedback-name",name);}catch(e){}
+if(ENDPOINT){fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(rec)}).catch(function(){});}
+commentInput.value="";
+statusEl.textContent="Thanks! Your feedback was saved.";
+renderAll([]);
+loadServer();
+});
+})();
+</script>
+
 </body>
 </html>
