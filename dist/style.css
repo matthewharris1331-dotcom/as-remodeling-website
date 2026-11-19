@@ -120,6 +120,25 @@ form button:hover{background:var(--terra-dark)}
 .color-save:hover{background:var(--terra-dark)}
 .color-cancel{display:block;width:100%;background:none;border:0;padding:10px;font:inherit;color:var(--ink-soft);cursor:pointer}
 .color-note{text-align:center;color:var(--ink-soft);font-size:.85rem;margin:8px 0 0}
+.feedback-btn{position:fixed;left:16px;bottom:16px;z-index:30;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px;font:inherit;font-weight:700;font-size:.9rem;color:var(--ink);box-shadow:0 6px 22px rgba(34,48,46,.18);cursor:pointer}
+.feedback-lightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(20,25,20,.55)}
+.feedback-lightbox.open{display:flex}
+.feedback-panel{background:var(--paper);border-radius:16px;max-width:560px;width:100%;max-height:90vh;max-height:90svh;overflow:auto;padding:24px;box-shadow:0 18px 60px rgba(0,0,0,.3)}
+.feedback-panel h2{margin:0 0 4px;font-size:1.4rem}
+.feedback-panel h3{margin:18px 0 8px;font-size:1.05rem}
+.feedback-panel .sub{color:var(--ink-soft);margin:0 0 16px;font-size:.95rem}
+.feedback-close{float:right;background:none;border:0;font-size:1.4rem;line-height:1;cursor:pointer;color:var(--ink-soft);padding:4px 8px}
+.feedback-field{display:block;margin:0 0 12px;font-weight:700}
+.feedback-field input,.feedback-field textarea{display:block;width:100%;margin-top:6px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-weight:400;color:var(--ink);background:var(--card)}
+.feedback-auto{color:var(--ink-soft);font-size:.85rem;margin:0 0 12px}
+.feedback-submit{display:block;width:100%;background:var(--terra);color:#fff;border:0;border-radius:999px;padding:13px 22px;font:inherit;font-weight:700;cursor:pointer}
+.feedback-submit:hover{background:var(--terra-dark)}
+.feedback-status{color:var(--ink-soft);font-size:.9rem;min-height:1.2em;margin:8px 0 0}
+.feedback-list{border-top:1px solid var(--line);padding-top:4px}
+.feedback-item{margin:0 0 12px}
+.feedback-item .meta{color:var(--ink-soft);font-size:.82rem}
+.feedback-item p{margin:.2em 0 0}
+.feedback-empty{color:var(--ink-soft);font-size:.92rem}
 @media (max-width:720px){
 .cards,.steps,.gallery,.footgrid{grid-template-columns:1fr}
 .hero-inner{padding:44px 24px 40px}
