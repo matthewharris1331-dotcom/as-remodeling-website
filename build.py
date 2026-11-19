@@ -26,7 +26,7 @@ PITCH = "Family-owned. One craftsman on every job. No crews, no shortcuts. Free 
 # Feedback widget: set to the Apps Script /exec URL once the "A.S. Remodeling
 # Feedback" Sheet is deployed. Empty means the widget saves in the visitor's
 # own browser only (per page) until the Sheet is wired up.
-FEEDBACK_ENDPOINT = ""
+FEEDBACK_ENDPOINT = "https://script.google.com/macros/s/AKfycbysxQajaMlh_kLONLjSl9SgKUcM86rVP7HTyt45fY-Y4whBFVM5cfXxLXStDY5Ixd9AFQ/exec"
 
 NAV = [
     ("Home", "index.html"),
