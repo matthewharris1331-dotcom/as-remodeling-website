@@ -31,6 +31,7 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .hero-photo{position:absolute;inset:0;background:url(images/hero-final-bathroom.jpg) center 45%/cover no-repeat;animation:heropush 18s linear forwards;transform-origin:50% 42%;pointer-events:none}
 .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 86%,transparent),color-mix(in srgb,var(--teal) 55%,transparent) 50%,color-mix(in srgb,var(--teal) 42%,transparent))}
 @keyframes heropush{from{transform:scale(1)}to{transform:scale(1.3)}}
+@media (max-width:640px){.hero-photo{background-image:url(images/hero-final-bathroom-mobile.jpg);background-position:center 40%;transform-origin:50% 38%}}
 .hero-inner{position:relative;z-index:1}
 @media (prefers-reduced-motion: reduce){.hero-photo{animation:none}}
 .hero-inner{padding:64px 24px 58px}
