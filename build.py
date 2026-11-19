@@ -80,7 +80,7 @@ def page(slug, title, desc, body, active, extra_schema=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="style-v4.css">
+<link rel="stylesheet" href="style-v5.css">
 <link rel="icon" type="image/svg+xml" href="as-remodeling-logo.svg">
 <script>var asrTheme=null;try{{asrTheme=localStorage.getItem("asr-theme")}}catch(e){{}}if(asrTheme&&asrTheme!=="current")document.documentElement.setAttribute("data-theme",asrTheme);</script>
 <script type="application/ld+json">{SCHEMA}</script>
@@ -703,6 +703,7 @@ nav a.active{color:var(--terra-dark);border-bottom:2px solid var(--terra)}
 .hero-photo{position:absolute;inset:0;background:url(images/hero-final-bathroom.jpg) center 45%/cover no-repeat;animation:heropush 18s linear forwards;transform-origin:50% 42%;pointer-events:none}
 .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 86%,transparent),color-mix(in srgb,var(--teal) 55%,transparent) 50%,color-mix(in srgb,var(--teal) 42%,transparent))}
 @keyframes heropush{from{transform:scale(1)}to{transform:scale(1.3)}}
+@media (max-width:640px){.hero-photo{background-image:url(images/hero-final-bathroom-mobile.jpg);background-position:center 40%;transform-origin:50% 38%}}
 .hero-inner{position:relative;z-index:1}
 @media (prefers-reduced-motion: reduce){.hero-photo{animation:none}}
 .hero-inner{padding:64px 24px 58px}
@@ -818,7 +819,7 @@ def main():
         title, desc, body, active = entry[:4]
         extra = entry[4] if len(entry) > 4 else None
         (OUT / slug).write_text(page(slug, title, desc, body, active, extra), encoding="utf-8")
-    (OUT / "style-v4.css").write_text(CSS, encoding="utf-8")
+    (OUT / "style-v5.css").write_text(CSS, encoding="utf-8")
     (OUT / "style.css").write_text(CSS, encoding="utf-8")
     urls = "".join(f"<url><loc>https://www.asremodelingllc.com/{s if s != 'index.html' else ''}</loc></url>\n" for s in PAGES)
     (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
